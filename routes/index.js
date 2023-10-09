@@ -3,7 +3,7 @@ const navigation = express.Router();
 
 //home page
 navigation.get('/', (req, res) => {
-    res.send('This is a test')
+    res.send('Hello World')
 })
 navigation.get('/console', (req, res) => {
     res.render('pages/live-console')
