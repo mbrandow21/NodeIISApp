@@ -1,0 +1,27 @@
+#logs-stream-output {
+    @include customScrollbar;
+
+    background-color: white;
+    margin: 2rem auto;
+    width: clamp(50vw, 1200px, 90vw);
+    height: 80dvh;
+    border-radius: 4px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    overflow: auto;
+
+    font-size: 12px;
+
+    .logs-stream-text {
+        text-wrap: wrap;
+        margin: 0;
+        padding: .25em .5em;
+        &:nth-of-type(odd) {
+            background-color: #FAFAFA;
+        }
+        &:empty {
+            display: none;
+            visibility: hidden;
+        }
+    }
+
+}
