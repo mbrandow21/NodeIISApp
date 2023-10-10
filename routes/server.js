@@ -33,4 +33,14 @@ router.get('/resetIIS', (req, res) => {
     });
 });
 
+router.get('/deploy', (req, res) => {
+    exec('cmd /c C:/websites/MP-API/resetIIS.bat', (error, stdout, stderr) => {
+        if (error) {
+            console.error(`exec error: ${error}`);
+            return res.status(500).send(error);
+        }
+        res.send('Deployment succeeded.');
+    });
+})
+
 module.exports = router;
