@@ -20,13 +20,13 @@ router.get('/logs', (req, res) => {
 router.get('/resetIIS', (req, res) => {
     // Before executing, check for some kind of authorization here
 
-    const triggerFilePath = path.join(__dirname, '..', 'logs', 'resetTrigger.txt');
+    // const triggerFilePath = path.join(__dirname, '..', 'logs', 'resetTrigger.txt');
 
     // Write to the trigger file
-    fs.writeFile(triggerFilePath, new Date().toISOString(), (error) => {
+    fs.writeFile('./logs/resetTrigger.txt', new Date().toISOString(), (error) => {
         if (error) {
             console.error(`Error writing to trigger file: ${error}`);
-            return res.status(500).send('Error signaling IIS reset.');
+            return res.status(500).send('Error signaling IIS reset.' + error);
         }
 
         res.send('Signal to reset IIS has been sent.');
