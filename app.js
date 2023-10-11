@@ -6,6 +6,7 @@ const fs = require('fs');
 const path = require('path');
 const http = require('http');
 const socketIo = require('socket.io');
+const flash = require('connect-flash');
 
 // import local function
 const connectDB = require('./db/connect.js');
@@ -39,6 +40,7 @@ app.use(session({
 // Package size middleware
 app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({limit: '50mb', extended: true}));
+app.use(flash());
 
 // Static file middleware
 app.use("/styles", express.static(__dirname + "/views/styles"));
@@ -47,6 +49,7 @@ app.use("/assets", express.static(__dirname + "/views/assets"));
 
 // API routing
 app.use('/api/server', require('./routes/server.js'));
+app.use('/api/auth', require('./routes/auth.js'));
 // Navigation routing
 app.use('/', require('./routes/index'));
 

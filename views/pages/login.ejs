@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="https://kit.fontawesome.com/e61ab9568e.js" crossorigin="anonymous"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <link rel="stylesheet" href="styles/main.css">
+</head>
+  <body id="login-page">
+    <form id="loginForm" method="post" action="/api/auth/login">
+      <input type="hidden" value="/" id="desired-path" name="desiredPath">
+
+      <img src="/assets/PHCLogoCircle.png" alt="Pure Heart Church">
+        <h1>Sign In</h1>
+        <div class="inputs">
+            <input type="text" name="username" id="username" autocomplete="on" placeholder="Username" required>
+            <input type="password" name="password" id="password" autocomplete="on" placeholder="Password" required>
+            <i class='far fa-eye-slash' id="togglePassword"></i>
+        </div>
+        <div class="row">
+            <div class="remember-input" title="Keeps you logged in on this device for 30 days">
+                <input type="checkbox" name="remember" id="remember" checked>
+                <label for="remember">Keep Me Logged In</label>
+            </div>
+            <a href="https://my.pureheart.org/ministryplatformapi/oauth/reset">Forgot Password</a>
+        </div>
+        <button type="submit" class="login">Login</button> 
+        
+        <p class="form-error"><%- error %></p>
+    </form>
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const desiredPath = urlParams.get('desiredPath');
+
+      const togglePassword = document.querySelector("#togglePassword");
+      const password = document.querySelector("#password");
+      const desiredPathDOM = document.getElementById('desired-path');
+
+      desiredPathDOM.value = desiredPath;
+
+      togglePassword.addEventListener("click", function () {
+          // toggle the type attribute
+          const type = password.getAttribute("type") === "password" ? "text" : "password";
+          password.setAttribute("type", type);
+          
+          // toggle the icon
+          this.classList.toggle("fa-eye-slash");
+          this.classList.toggle("fa-eye");
+      });
+    </script>
+  </body>
+</html>

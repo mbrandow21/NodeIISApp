@@ -6,6 +6,7 @@
  * 2. Prevent adjustments of font size after orientation changes in iOS.
  */
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;900&display=swap");
 html {
   line-height: 1.15; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
@@ -313,13 +314,20 @@ template {
 
 body,
 html {
-  background-color: #ecf0f1;
+  background-color: #2c3e50;
   font-family: "Roboto", "sans-serif";
   min-height: 100dvh;
   width: 100%;
   max-width: 100vw;
   display: flex;
   flex-direction: column;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Poppins", "sans-serif";
+  font-weight: 200;
+  text-align: center;
+  margin: 0;
 }
 
 #logs-stream-output {
@@ -355,7 +363,7 @@ html {
   background: rgba(0, 0, 0, 0.5); /* Even more opaque black when clicked on */
 }
 #logs-stream-output .logs-stream-text {
-  text-wrap: wrap;
+  white-space: pre-wrap;
   margin: 0;
   padding: 0.25em 0.5em;
 }
@@ -365,4 +373,136 @@ html {
 #logs-stream-output .logs-stream-text:empty {
   display: none;
   visibility: hidden;
+}
+
+#login-page {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='3840' height='2160' preserveAspectRatio='none' viewBox='0 0 3840 2160'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1071%26quot%3b)' fill='none'%3e%3crect width='3840' height='2160' x='0' y='0' fill='rgba(30%2c 50%2c 64%2c 1)'%3e%3c/rect%3e%3cpath d='M 0%2c172 C 256%2c271.2 768%2c641.4 1280%2c668 C 1792%2c694.6 2048%2c311.6 2560%2c305 C 3072%2c298.4 3584%2c569 3840%2c635L3840 2160L0 2160z' fill='rgba(44%2c 62%2c 80%2c 1)'%3e%3c/path%3e%3cpath d='M 0%2c1801 C 256%2c1718.2 768%2c1389.2 1280%2c1387 C 1792%2c1384.8 2048%2c1810.6 2560%2c1790 C 3072%2c1769.4 3584%2c1385.2 3840%2c1284L3840 2160L0 2160z' fill='rgba(53%2c 74%2c 96%2c 1)'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1071'%3e%3crect width='3840' height='2160' fill='white'%3e%3c/rect%3e%3c/mask%3e%3c/defs%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  display: grid;
+  place-items: center;
+  color: white;
+  font-family: "Poppins", "sans-serif";
+}
+@media screen and (max-width: 768px) {
+  #login-page {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='1440' height='2160' preserveAspectRatio='none' viewBox='0 0 1440 2160'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1091%26quot%3b)' fill='none'%3e%3crect width='1440' height='2160' x='0' y='0' fill='rgba(30%2c 50%2c 64%2c 1)'%3e%3c/rect%3e%3cpath d='M 0%2c344 C 144%2c405.4 432%2c685.2 720%2c651 C 1008%2c616.8 1296%2c268.6 1440%2c173L1440 2160L0 2160z' fill='rgba(44%2c 62%2c 80%2c 1)'%3e%3c/path%3e%3cpath d='M 0%2c2020 C 144%2c1879 432%2c1360.2 720%2c1315 C 1008%2c1269.8 1296%2c1698.2 1440%2c1794L1440 2160L0 2160z' fill='rgba(53%2c 74%2c 96%2c 1)'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1091'%3e%3crect width='1440' height='2160' fill='white'%3e%3c/rect%3e%3c/mask%3e%3c/defs%3e%3c/svg%3e");
+  }
+}
+#login-page #loginForm {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.0941176471) 0%, rgba(208, 208, 208, 0.1882352941) 25%, rgba(176, 176, 176, 0.2823529412) 50%, rgba(208, 208, 208, 0.1882352941) 75%, rgba(255, 255, 255, 0.0941176471) 100%);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  -webkit-backdrop-filter: blur(6px);
+          backdrop-filter: blur(6px);
+  border-radius: 8px;
+  padding: 2rem;
+  max-width: 450px;
+  width: clamp(30vw, 25rem, 75vw);
+  font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+}
+#login-page #loginForm img {
+  width: 100%;
+  max-width: 150px;
+  margin: 0 auto;
+  display: block;
+  filter: drop-shadow(rgba(255, 255, 255, 0.3333333333) 0px 3px 8px);
+}
+#login-page #loginForm h1 {
+  margin-block: 0.5rem 2rem;
+}
+#login-page #loginForm .inputs {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 0.25rem;
+  position: relative;
+}
+#login-page #loginForm .inputs input {
+  border: none;
+  border-radius: 0;
+  outline: none;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1333333333);
+  padding: 0.75rem 1rem;
+}
+#login-page #loginForm .inputs input:last-of-type {
+  border: none;
+}
+#login-page #loginForm .inputs #togglePassword {
+  color: black;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  margin: 0.9rem 0.5rem;
+  font-size: 1.25rem;
+}
+#login-page #loginForm .row {
+  display: flex;
+  justify-content: space-between;
+}
+#login-page #loginForm .row a {
+  font-size: clamp(14px, 3.5vw, 16px);
+  margin-top: 0.5rem;
+  color: currentColor;
+}
+#login-page #loginForm .remember-input {
+  font-size: clamp(14px, 3.5vw, 16px);
+  margin: 0.5rem 0;
+  margin-bottom: 0;
+}
+#login-page #loginForm .login {
+  color: currentColor;
+  position: relative;
+  overflow: hidden;
+  background-color: #2c3e50;
+  border: none;
+  width: 100%;
+  padding: 0.75rem;
+  margin: 0;
+  margin-block: 2rem 0;
+  border-radius: 0.25rem;
+  font-weight: 200;
+  cursor: pointer;
+}
+#login-page #loginForm .login:hover, #login-page #loginForm .login:focus-within {
+  background-color: #354a60;
+}
+#login-page #loginForm .login:hover:before, #login-page #loginForm .login:focus-within:before {
+  animation: shine 1.5s ease-out infinite;
+}
+#login-page #loginForm .login::before {
+  content: "";
+  position: absolute;
+  width: 100px;
+  height: 100%;
+  background-image: linear-gradient(120deg, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0) 70%);
+  top: 0;
+  left: -100px;
+  opacity: 0.6;
+}
+#login-page #loginForm .form-error {
+  color: #e74c3c;
+  text-align: center;
+  text-decoration: underline;
+  margin: 0;
+  margin-top: 1rem;
+}
+#login-page #loginForm .form-error:empty {
+  display: none;
+  visibility: hidden;
+}
+
+@keyframes shine {
+  0% {
+    left: -100px;
+  }
+  30% {
+    left: -100px;
+  }
+  70% {
+    left: 100%;
+  }
+  100% {
+    left: 100%;
+  }
 }/*# sourceMappingURL=main.css.map */

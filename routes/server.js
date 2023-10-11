@@ -9,9 +9,6 @@ const githubWeekhookAuth = (req, res, next) => {
     const payload = JSON.stringify(req.body);
     const hubSignature = req.headers['x-hub-signature'];
 
-    log(payload);
-    log(hubSignature);
-
     const signature = crypto
         .createHmac('sha1', process.env.GITHUB_WEBHOOK_SECRET)
         .update(payload)
@@ -22,19 +19,6 @@ const githubWeekhookAuth = (req, res, next) => {
     }
     return next();
 }
-
-router.get('/logs', (req, res) => {
-    const logFilePath = path.join(__dirname, '..', 'logs', 'access.log');
-    
-    fs.readFile(logFilePath, 'utf8', (err, data) => {
-        if (err) {
-            return res.status(500).json({ error: 'Failed to read the log file' });
-        }
-        
-        const logsArray = data.split('\n').filter(log => log);  // Split by newline and filter out any empty strings
-        res.json(logsArray);
-    });
-});
 
 router.post('/deploy', githubWeekhookAuth, (req, res) => {
     // Before executing, check for some kind of authorization here
@@ -47,6 +31,19 @@ router.post('/deploy', githubWeekhookAuth, (req, res) => {
         }
 
         res.send('Signal to reset IIS has been sent.');
+    });
+});
+
+router.get('/logs', (req, res) => {
+    const logFilePath = path.join(__dirname, '..', 'logs', 'access.log');
+    
+    fs.readFile(logFilePath, 'utf8', (err, data) => {
+        if (err) {
+            return res.status(500).json({ error: 'Failed to read the log file' });
+        }
+        
+        const logsArray = data.split('\n').filter(log => log);  // Split by newline and filter out any empty strings
+        res.json(logsArray);
     });
 });
 
