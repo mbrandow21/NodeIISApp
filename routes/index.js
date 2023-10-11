@@ -5,7 +5,7 @@ const { ensureAuthenticated } = require('../middleware/authorization.js');
 
 //home page
 navigation.get('/', (req, res) => {
-    res.send('Hello World Test')
+    res.send('Hello World')
 })
 navigation.get('/login', (req, res) => {
     res.render('pages/login', { error: req.flash('error') })
