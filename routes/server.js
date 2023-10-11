@@ -2,7 +2,26 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const router = express.Router();
-const { exec } = require('child_process');
+const crypto = require('crypto');
+const log = require('../middleware/logger.js');
+
+const githubWeekhookAuth = (req, res, next) => {
+    const payload = JSON.stringify(req.body);
+    const hubSignature = req.headers['x-hub-signature'];
+
+    log(payload);
+    log(hubSignature);
+
+    const signature = crypto
+        .createHmac('sha1', process.env.GITHUB_WEBHOOK_SECRET)
+        .update(payload)
+        .digest('hex');
+
+    if (`sha1=${signature}` !== hubSignature) {
+        return res.status(401).send('Invalid signature');
+    }
+    return next();
+}
 
 router.get('/logs', (req, res) => {
     const logFilePath = path.join(__dirname, '..', 'logs', 'access.log');
@@ -17,10 +36,8 @@ router.get('/logs', (req, res) => {
     });
 });
 
-router.get('/resetIIS', (req, res) => {
+router.post('/deploy', githubWeekhookAuth, (req, res) => {
     // Before executing, check for some kind of authorization here
-
-    // const triggerFilePath = path.join(__dirname, '..', 'logs', 'resetTrigger.txt');
 
     // Write to the trigger file
     fs.writeFile('./logs/resetTrigger.txt', new Date().toISOString(), (error) => {
@@ -32,15 +49,5 @@ router.get('/resetIIS', (req, res) => {
         res.send('Signal to reset IIS has been sent.');
     });
 });
-
-router.get('/deploy', (req, res) => {
-    exec('cmd /c C:/websites/MP-API/resetIIS.bat', (error, stdout, stderr) => {
-        if (error) {
-            console.error(`exec error: ${error}`);
-            return res.status(500).send(error);
-        }
-        res.send('Deployment succeeded.');
-    });
-})
 
 module.exports = router;

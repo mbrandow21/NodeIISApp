@@ -4,4 +4,5 @@ logs
 node_modules
 .env
 web.config
-resetIIS.bat
+resetIIS.ps1
+updateCode.bat
