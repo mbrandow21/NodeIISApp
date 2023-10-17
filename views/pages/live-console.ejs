@@ -1,19 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <link rel="stylesheet" href="styles/main.css">
+    <%- include('../components/head'); %>
 </head>
 <body>
     <div id="logs-stream-output"></div>
     <script src="/socket.io/socket.io.js"></script>
     <script>
         // Connect to the server
-        const socket = io();
+        const socket = io('/logs');
         const logOutputDOM = document.getElementById('logs-stream-output');
     
         // Listen for events from the server or send events to the server

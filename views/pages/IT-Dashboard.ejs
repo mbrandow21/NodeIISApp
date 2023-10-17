@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%- include('../components/head'); %>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <title>PHC - IT Dashboard</title>
+</head>
+<body id="dashboard-page">
+  <%- include('../components/loading'); %>
+
+  <helpdesk-dashboard></helpdesk-dashboard>
+  
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/scripts/helpdeskDashboard.js"></script>
+</body>
+</html>

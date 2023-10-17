@@ -2,23 +2,9 @@ const express = require('express');
 const fs = require('fs');
 const path = require('path');
 const router = express.Router();
-const crypto = require('crypto');
 const log = require('../middleware/logger.js');
 
-const githubWeekhookAuth = (req, res, next) => {
-    const payload = JSON.stringify(req.body);
-    const hubSignature = req.headers['x-hub-signature'];
-
-    const signature = crypto
-        .createHmac('sha1', process.env.GITHUB_WEBHOOK_SECRET)
-        .update(payload)
-        .digest('hex');
-
-    if (`sha1=${signature}` !== hubSignature) {
-        return res.status(401).send('Invalid signature');
-    }
-    return next();
-}
+const { githubWeekhookAuth } = require('../middleware/keyAuth.js');
 
 router.post('/deploy', githubWeekhookAuth, (req, res) => {
     // Before executing, check for some kind of authorization here

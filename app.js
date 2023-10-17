@@ -5,8 +5,9 @@ const morgan = require('morgan');
 const fs = require('fs');
 const path = require('path');
 const http = require('http');
-const socketIo = require('socket.io');
+// const socketIo = require('socket.io');
 const flash = require('connect-flash');
+const socketSingleton = require('./middleware/socketSingleton.js');
 
 // import local function
 const connectDB = require('./db/connect.js');
@@ -17,7 +18,7 @@ const setupSocketManager = require('./middleware/socketManager.js');
 // Initializing the express app
 const app = express();
 const server = http.createServer(app);
-const io = socketIo(server);
+const io = socketSingleton.init(server);
 
 // Express settings
 app.set('trust proxy', 1);
@@ -50,6 +51,8 @@ app.use("/assets", express.static(__dirname + "/views/assets"));
 // API routing
 app.use('/api/server', require('./routes/server.js'));
 app.use('/api/auth', require('./routes/auth.js'));
+app.use('/api/mp', require('./routes/mp.js'));
+app.use('/api/helpdesk', require('./routes/helpdesk-socket.js'));
 // Navigation routing
 app.use('/', require('./routes/index'));
 
@@ -63,3 +66,7 @@ const port = process.env.PORT || 3000;
     await connectDB();    
   } catch (error) { console.log(error) }
 })();
+
+module.exports = {
+  io
+}

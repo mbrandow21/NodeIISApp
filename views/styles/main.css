@@ -330,6 +330,61 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0;
 }
 
+#loadingScreen {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6666666667);
+  color: white;
+  font-size: clamp(1rem, 6vw, 2rem);
+  display: grid;
+  place-items: center;
+  visibility: hidden;
+  display: none;
+  z-index: 999;
+}
+#loadingScreen h3 {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+}
+#loadingScreen #loading-bar {
+  width: 105px;
+  height: 105px;
+  border-radius: 50%;
+  position: absolute;
+  overflow: hidden;
+}
+#loadingScreen #loading-bar #progress {
+  width: 100%;
+  height: 0%;
+  background-color: #2980b9;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+}
+
+.loader {
+  /* Light grey */
+  border: 16px solid rgba(0, 0, 0, 0.1333333333);
+  /* Blue */
+  border-right: 16px solid #2980b9;
+  border-left: 16px solid #2980b9;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 #logs-stream-output {
   /* For both vertical and horizontal scrollbars */
   /* Track */
@@ -505,4 +560,143 @@ h1, h2, h3, h4, h5, h6 {
   100% {
     left: 100%;
   }
+}
+.container-title {
+  font-family: "Helvetica Neue", "Helvetica", "Arial", sans-serif;
+  color: #FFF;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+#dashboard-page {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='3840' height='2160' preserveAspectRatio='none' viewBox='0 0 3840 2160'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1071%26quot%3b)' fill='none'%3e%3crect width='3840' height='2160' x='0' y='0' fill='rgba(30%2c 50%2c 64%2c 1)'%3e%3c/rect%3e%3cpath d='M 0%2c172 C 256%2c271.2 768%2c641.4 1280%2c668 C 1792%2c694.6 2048%2c311.6 2560%2c305 C 3072%2c298.4 3584%2c569 3840%2c635L3840 2160L0 2160z' fill='rgba(44%2c 62%2c 80%2c 1)'%3e%3c/path%3e%3cpath d='M 0%2c1801 C 256%2c1718.2 768%2c1389.2 1280%2c1387 C 1792%2c1384.8 2048%2c1810.6 2560%2c1790 C 3072%2c1769.4 3584%2c1385.2 3840%2c1284L3840 2160L0 2160z' fill='rgba(53%2c 74%2c 96%2c 1)'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1071'%3e%3crect width='3840' height='2160' fill='white'%3e%3c/rect%3e%3c/mask%3e%3c/defs%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+@media screen and (max-width: 768px) {
+  #dashboard-page {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' version='1.1' xmlns:xlink='http://www.w3.org/1999/xlink' xmlns:svgjs='http://svgjs.dev/svgjs' width='1440' height='2160' preserveAspectRatio='none' viewBox='0 0 1440 2160'%3e%3cg mask='url(%26quot%3b%23SvgjsMask1091%26quot%3b)' fill='none'%3e%3crect width='1440' height='2160' x='0' y='0' fill='rgba(30%2c 50%2c 64%2c 1)'%3e%3c/rect%3e%3cpath d='M 0%2c344 C 144%2c405.4 432%2c685.2 720%2c651 C 1008%2c616.8 1296%2c268.6 1440%2c173L1440 2160L0 2160z' fill='rgba(44%2c 62%2c 80%2c 1)'%3e%3c/path%3e%3cpath d='M 0%2c2020 C 144%2c1879 432%2c1360.2 720%2c1315 C 1008%2c1269.8 1296%2c1698.2 1440%2c1794L1440 2160L0 2160z' fill='rgba(53%2c 74%2c 96%2c 1)'%3e%3c/path%3e%3c/g%3e%3cdefs%3e%3cmask id='SvgjsMask1091'%3e%3crect width='1440' height='2160' fill='white'%3e%3c/rect%3e%3c/mask%3e%3c/defs%3e%3c/svg%3e");
+  }
+}
+
+helpdesk-dashboard {
+  width: -moz-min-content;
+  width: min-content;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+helpdesk-dashboard .row {
+  display: flex;
+  gap: 1rem;
+}
+helpdesk-dashboard .chart-container {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.0941176471) 0%, rgba(208, 208, 208, 0.1882352941) 25%, rgba(176, 176, 176, 0.2823529412) 50%, rgba(208, 208, 208, 0.1882352941) 75%, rgba(255, 255, 255, 0.0941176471) 100%);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  -webkit-backdrop-filter: blur(6px);
+          backdrop-filter: blur(6px);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  padding-top: 1rem;
+  height: 500px;
+  box-sizing: border-box;
+  width: -moz-max-content;
+  width: max-content;
+}
+helpdesk-dashboard .chart-container canvas {
+  height: 100%;
+}
+helpdesk-dashboard .kpi-container {
+  height: 500px;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 0.5rem;
+  width: 100%;
+}
+helpdesk-dashboard .kpi-container .kpi-value {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.0941176471) 0%, rgba(208, 208, 208, 0.1882352941) 25%, rgba(176, 176, 176, 0.2823529412) 50%, rgba(208, 208, 208, 0.1882352941) 75%, rgba(255, 255, 255, 0.0941176471) 100%);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  -webkit-backdrop-filter: blur(6px);
+          backdrop-filter: blur(6px);
+  border-radius: 1.5rem;
+  border-radius: 0.375rem;
+  padding: 0 1rem;
+  height: calc((500px - 1rem - 24px) / 3);
+  width: calc(100% - 8px);
+  box-sizing: border-box;
+  background-color: currentColor;
+  margin: 4px;
+  outline: 4px solid rgba(255, 255, 255, 0.3);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  place-items: center;
+}
+helpdesk-dashboard .kpi-container .kpi-value h1, helpdesk-dashboard .kpi-container .kpi-value p {
+  color: white;
+  margin: 0;
+}
+helpdesk-dashboard .kpi-container .kpi-value:nth-of-type(1) {
+  border-top-left-radius: 1.5rem;
+}
+helpdesk-dashboard .kpi-container .kpi-value:nth-of-type(2) {
+  border-top-right-radius: 1.5rem;
+}
+helpdesk-dashboard .kpi-container .kpi-value:nth-of-type(5) {
+  border-bottom-left-radius: 1.5rem;
+}
+helpdesk-dashboard .kpi-container .kpi-value:nth-of-type(6) {
+  border-bottom-right-radius: 1.5rem;
+}
+helpdesk-dashboard .recent-tickets-container {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.0941176471) 0%, rgba(208, 208, 208, 0.1882352941) 25%, rgba(176, 176, 176, 0.2823529412) 50%, rgba(208, 208, 208, 0.1882352941) 75%, rgba(255, 255, 255, 0.0941176471) 100%);
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  -webkit-backdrop-filter: blur(6px);
+          backdrop-filter: blur(6px);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  box-sizing: border-box;
+  display: grid;
+  gap: 0.5rem;
+  height: 500px;
+  aspect-ratio: 1.72;
+}
+helpdesk-dashboard .recent-tickets-container .recent-ticket {
+  background-color: currentColor;
+  border-radius: 0.375rem;
+  margin: 4px;
+  outline: 4px solid rgba(255, 255, 255, 0.3);
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  white-space: nowrap;
+  overflow: hidden;
+}
+helpdesk-dashboard .recent-tickets-container .recent-ticket .ticket-title {
+  font-size: 24px;
+}
+helpdesk-dashboard .recent-tickets-container .recent-ticket .ticket-row {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-size: 18px;
+}
+helpdesk-dashboard .recent-tickets-container .recent-ticket .ticket-description {
+  margin: 0;
+  margin-top: auto;
+  font-size: 16px;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+helpdesk-dashboard .recent-tickets-container .recent-ticket h1, helpdesk-dashboard .recent-tickets-container .recent-ticket h2, helpdesk-dashboard .recent-tickets-container .recent-ticket p {
+  color: #FFF;
+  margin: 0;
 }/*# sourceMappingURL=main.css.map */

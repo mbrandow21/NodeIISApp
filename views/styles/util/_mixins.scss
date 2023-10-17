@@ -37,3 +37,10 @@
     }
 
 }
+
+@mixin frostedGlassBG {
+    background: linear-gradient(135deg, #FFFFFF18 0%, #D0D0D030 25%, #B0B0B048 50%, #D0D0D030 75%, #FFFFFF18 100%);
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    backdrop-filter: blur(6px);
+    border-radius: $radius;
+}

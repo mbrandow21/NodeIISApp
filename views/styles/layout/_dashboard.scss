@@ -1,0 +1,127 @@
+$chartContainerHeight: 500px;
+$defaultGap: 1rem;
+$smallGap: .5rem;
+$defaultPadding: 2rem;
+$defaultBorderWidth: 4px;
+$kpiValueHeight: calc(($chartContainerHeight - ($smallGap * 2) - (($defaultBorderWidth * 2) * 3)) / 3);
+
+
+.container-title {
+  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  color: #FFF;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+#dashboard-page {
+  @include blobBackground;
+
+}
+helpdesk-dashboard {
+  width: min-content;
+  display: flex;
+  flex-direction: column;
+  gap: $defaultGap;
+
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  .row {
+    display: flex;
+    gap: $defaultGap;
+  }
+  .chart-container {
+    @include frostedGlassBG;
+    padding: $defaultPadding;
+    padding-top: calc($defaultPadding / 2);
+    height: $chartContainerHeight;
+    box-sizing: border-box;
+    width: max-content;
+    canvas {
+      height: 100%;
+    }
+  }
+  .kpi-container {
+    height: $chartContainerHeight;
+    box-sizing: border-box;
+
+    
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: $smallGap;
+    width: 100%;
+    .kpi-value {
+      @include frostedGlassBG;
+      border-radius: calc($radius / 4);
+      padding: 0 1rem;
+      height: $kpiValueHeight;
+      // width: $chartContainerHeight * 0.66;
+      width: calc(100% - ($defaultBorderWidth * 2));
+      box-sizing: border-box;
+      background-color: currentColor;
+      margin: $defaultBorderWidth;
+      outline: $defaultBorderWidth solid rgba(255, 255, 255, 0.3);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      place-items: center;
+      h1, p {
+        color: white;
+        margin: 0;
+      }
+      $edgeBorderRadius: $radius;
+      &:nth-of-type(1) { border-top-left-radius: $edgeBorderRadius; }
+      &:nth-of-type(2) { border-top-right-radius: $edgeBorderRadius; }
+      &:nth-of-type(5) { border-bottom-left-radius: $edgeBorderRadius; }
+      &:nth-of-type(6) { border-bottom-right-radius: $edgeBorderRadius; }
+    }
+  }
+  .recent-tickets-container {
+    @include frostedGlassBG;
+    padding: $defaultPadding;
+    box-sizing: border-box;
+    display: grid;
+    gap: $smallGap;
+    height: $chartContainerHeight;
+    aspect-ratio: 1.72;
+    .recent-ticket {
+      background-color: currentColor;
+      border-radius: calc($radius / 4);
+      margin: $defaultBorderWidth;
+      outline: $defaultBorderWidth solid rgba(255, 255, 255, 0.3);
+      padding: calc($defaultPadding / 4);
+
+      display: flex;
+      flex-direction: column;
+      
+      white-space: nowrap;
+      overflow: hidden;
+
+      .ticket-title {
+        font-size: 24px;
+      }
+      .ticket-row {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+
+        font-size: 18px;
+      }
+      .ticket-description {
+        margin: 0;
+        margin-top: auto;
+        font-size: 16px;
+        width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis; 
+      }
+
+      h1, h2, p {
+        color: #FFF;
+        margin: 0;
+      }
+    }
+  }
+}

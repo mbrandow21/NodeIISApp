@@ -3,7 +3,7 @@ const fs = require('fs');
 // The custom log function
 function log(message) {
     // Displaying the message on console
-    console.log(message);
+    // console.log(message);
     
     // Appending the message to the access.log file
     fs.appendFile('logs/access.log', 'CONSOLE: ' + message + '\n', (err) => {

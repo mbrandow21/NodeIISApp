@@ -1,15 +1,21 @@
 const axios = require('axios');
 const qs = require('qs');
 
+
 const ensureAuthenticated = async (req, res, next) => {
     const logging = 0;
-
+    
     const {user, access_token, refresh_token} = req.session;
 
+    const loginRedirect = () => {
+        const redirectPath = req.path == '/' ? '/login' : `/login?desiredPath=${req.path}`;
+        return res.redirect(redirectPath)    
+    }
+    
     if (!user || !access_token) {
         if (logging) console.log('no token')
         // kick em out
-        return res.redirect(`/login?desiredPath=${req.path}`)
+        return loginRedirect();
     };
 
     // checks if current access token is valid
@@ -39,7 +45,7 @@ const ensureAuthenticated = async (req, res, next) => {
     if (!refresh_token) {
         if (logging) console.log('no refresh token')
         req.flash('error', 'Session expired');
-        return res.redirect('/login');
+        return loginRedirect();
     }
     
     const newAccessToken = await axios({
@@ -55,9 +61,8 @@ const ensureAuthenticated = async (req, res, next) => {
     })
         .then(response => response.data.access_token)
         .catch(err => {
-            console.log('ensureAuthenticated')
-            console.log('something went wrong: ' + err);
-            return false;
+            req.flash('error', 'Internal server error');
+            return loginRedirect();
         })
 
     if (logging) console.log('new token')
@@ -67,10 +72,21 @@ const ensureAuthenticated = async (req, res, next) => {
         return next();
     } else {
         req.flash('error', 'Internal server error');
-        return res.redirect('/login');
+        return loginRedirect();
+    }
+}
+
+const ensureAdmin = (req, res, next) => {
+    const { roles } = req.session.user;
+    if (roles && roles.includes('Administrators')) {
+        return next();
+    } else {
+        req.flash('error', 'Unauthorized');
+        return loginRedirect();
     }
 }
 
 module.exports = {
-    ensureAuthenticated
+    ensureAuthenticated,
+    ensureAdmin
 }
