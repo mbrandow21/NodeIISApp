@@ -32,12 +32,12 @@ module.exports = (io) => {
     });
 
     // New namespace for tickets
-    // const ticketsNamespace = io.of('/tickets');
+    const ticketsNamespace = io.of('/tickets');
 
     // ticketsNamespace.on('connection', (socket) => {
-    //     socket.on('ticketUpdate', () => {
-    //         console.log('new ticket update');
-    //     })
+    //     // socket.on('ticketUpdate', () => {
+    //     //     console.log('new ticket update');
+    //     // })
     //     // socket.on('requestUpdate', () => {
     //     //     // Send updates when requested
     //     //     socket.emit('ticketUpdate', { message: 'New ticket data here' });
