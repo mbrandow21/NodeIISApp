@@ -85,7 +85,8 @@ helpdesk-dashboard {
     display: grid;
     gap: $smallGap;
     height: $chartContainerHeight;
-    aspect-ratio: 1.72;
+    // aspect-ratio: 1.72;
+    aspect-ratio: 1.25;
     .recent-ticket {
       background-color: currentColor;
       border-radius: calc($radius / 4);
@@ -101,8 +102,11 @@ helpdesk-dashboard {
 
       .ticket-title {
         font-size: 24px;
+        overflow: hidden;
+        text-overflow: ellipsis; 
       }
       .ticket-row {
+        margin-block: .5rem;
         width: 100%;
         display: flex;
         justify-content: space-between;

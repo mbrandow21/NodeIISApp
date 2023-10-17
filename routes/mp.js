@@ -23,8 +23,8 @@ const MinistryPlatformAPI = require('ministry-platform-api-wrapper');
 // });
 router.get('/tickets', async (req, res) => {
   try {    
-    const data = await MinistryPlatformAPI.request('post', '/procs/api_Widget_HelpdeskTickets', {}, {});
-    res.send(data[0]);
+    const [data] = await MinistryPlatformAPI.request('post', '/procs/api_Widget_HelpdeskTickets', {}, {});
+    res.send(data);
   } catch (error) {
     console.log(error);
     res.status(500).send('Internal server error');
@@ -48,5 +48,16 @@ router.get('/ticket-methods', async (req, res) => {
     res.status(500).send('Internal server error');
   }
 });
+
+router.get('/tickets-by-team', async (req, res) => {
+  try {
+    const { daysBack = 30 } = req.query;
+    const [data] = await MinistryPlatformAPI.request('post', '/procs/PHCGetMinistriesTickets', {}, {"@daysBack":daysBack});
+    res.send(data);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send('Internal server error');
+  }
+})
 
 module.exports = router;

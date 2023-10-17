@@ -11,8 +11,13 @@ class Dashboard extends HTMLElement {
       "#a29bfe",       // Light Lavender
       "#2ecc71",       // Emerald
       "#d35400",       // Pumpkin
-      "#8e44ad"        // Dark Violet
-    ];
+      "#f06292",       // Pink
+      "#64b5f6",       // Sky Blue
+      "#4db6ac",       // Teal
+      "#ff8a65",       // Deep Orange
+      "#7986cb"        // Indigo
+    ];       
+    
     this.defaultGray = "#3a3a3a"; // Dark Gray
     this.titleSize = 24;
     this.charts = [];
@@ -39,12 +44,6 @@ class Dashboard extends HTMLElement {
 
   createWebsocket = () => {
     this.socket = io(window.location.origin + '/tickets');
-
-    // this.socket.on('connection', (socket) => {
-    //   console.log('successfully connected');
-    //   console.log(socket);
-    //   // your connection logic here
-    // });
   
     this.socket.on('ticketUpdate', (data) => {
       const { IT_Help_Ticket_ID } = data;
@@ -65,6 +64,7 @@ class Dashboard extends HTMLElement {
   
       this.currTickets = this.allTickets.filter(ticket => new Date(ticket.Request_Date) > this.minDate);
       this.draw();
+      this.scheduleUpdate(); // schedule to update every night at midnight
     });
   }
 
@@ -108,6 +108,20 @@ class Dashboard extends HTMLElement {
     audio.play();
   }
 
+  scheduleUpdate = () => {
+    const now = new Date();
+    const tomorrow = new Date(now);
+    tomorrow.setDate(now.getDate() + 1);
+    tomorrow.setHours(0, 0, 0, 0); // Set to midnight
+  
+    const timeUntilTomorrow = tomorrow - now;
+  
+    setTimeout(() => {
+      this.update();
+      this.scheduleUpdate(); // schedule the next update
+    }, timeUntilTomorrow);
+  }
+
   update = async () => {
     try {
       this.allTickets = await axios({
@@ -129,6 +143,12 @@ class Dashboard extends HTMLElement {
         url: '/api/mp/ticket-methods'
       })
         .then(response => response.data)
+
+      this.ticketsByTeam = await axios({
+        method: 'get',
+        url: `/api/mp/tickets-by-team?daysBack=${this.daysBack}`
+      })
+        .then(response => response.data)
     } catch (error) {
       return console.log(error)
     }
@@ -145,8 +165,9 @@ class Dashboard extends HTMLElement {
     this.createKPI(this.getKPIValues());
     this.createRecentTickets(this.getRecentTickets());
     this.createChart(this.getMethodsPieChart());
-    this.createChart(this.getTicketsOverTimeChart());
+    this.createChart(this.getTeamsPieChart());
     this.createChart(this.getResolveTimeChart());
+    this.createChart(this.getTicketsOverTimeChart());
   }
 
   addChartToRow = (elem) => {
@@ -158,7 +179,7 @@ class Dashboard extends HTMLElement {
         return this.appendChild(rowDOM);
     } 
     rows.forEach((rowDom, i) => {
-      if (rowDom.childElementCount < 3) {
+      if (rowDom.childElementCount < 4) {
         return rowDom.appendChild(elem);
       } else if (i == rows.length-1) {
         // otherwise create new row
@@ -405,8 +426,42 @@ class Dashboard extends HTMLElement {
     };
   }
 
+  getTeamsPieChart = () => {
+    // Sort by count (largest to smallest)
+    const sortedTicketTeams = this.ticketsByTeam
+      .filter(team => team.Ticket_Count > 0)
+      .sort((a, b) => a.Ticket_Count - b.Ticket_Count);
+    const teams = sortedTicketTeams.map(team => team.Team_Name);
+    const teamCounts = sortedTicketTeams.map(team => team.Ticket_Count);
+
+    return {
+      type: 'pie',
+      data: {
+        labels:  teams,
+        datasets: [{
+          label: "# of Tickets",
+          backgroundColor: this.colors,
+          data: teamCounts
+        }]
+      },
+      options: {
+        plugins: {
+            title: {
+              display: true,
+              text: 'Tickets By Team ' + this.timeLabel,
+              font: {
+                size: this.titleSize
+              }
+            }
+        },
+        responsive:true
+      }
+    };
+  }
+
   getResolveTimeChart = () => {
-    const chartTickets = this.allTickets;
+    const today = new Date();
+    const chartTickets = this.allTickets.filter(ticket => new Date(ticket.Resolve_Date).getFullYear() == today.getFullYear() && new Date(ticket.Request_Date).getFullYear() == today.getFullYear());
     const uniqueAgents = [...new Set(chartTickets.filter(ticket => ticket.Agent !== null).map(ticket => ticket.Agent).sort())]
     const resolvedTickets = chartTickets.filter(ticket => ticket.Status == 3 && ticket.Resolve_Date !== null);
     const avgResolveHours = [];
@@ -433,7 +488,7 @@ class Dashboard extends HTMLElement {
         plugins: {
           title: {
             display: true,
-            text: 'Avg. Ticket Resolve Time (Hrs)',
+            text: 'Avg. Ticket Resolve Time YTD (Hrs)',
             font: {
               size: this.titleSize
             }

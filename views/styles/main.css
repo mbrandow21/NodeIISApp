@@ -666,7 +666,7 @@ helpdesk-dashboard .recent-tickets-container {
   display: grid;
   gap: 0.5rem;
   height: 500px;
-  aspect-ratio: 1.72;
+  aspect-ratio: 1.25;
 }
 helpdesk-dashboard .recent-tickets-container .recent-ticket {
   background-color: currentColor;
@@ -681,8 +681,11 @@ helpdesk-dashboard .recent-tickets-container .recent-ticket {
 }
 helpdesk-dashboard .recent-tickets-container .recent-ticket .ticket-title {
   font-size: 24px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 helpdesk-dashboard .recent-tickets-container .recent-ticket .ticket-row {
+  margin-block: 0.5rem;
   width: 100%;
   display: flex;
   justify-content: space-between;
