@@ -554,14 +554,12 @@ class Dashboard extends HTMLElement {
       const { Requestor, Request_Title, Description, Request_Date } = ticket;
   
       // Replace <br> and its variants with a newline, then strip all other tags
-      const descriptionText = Description
-        .replace(/<br\s*\/?>/g, "\n")  // Replace <br> tags with newline
-        .replace(/(<([^>]+)>)/g, "");  // Strip all other HTML tags
+      // const descriptionText = Description.replace(/<br\s*\/?>/g, "\n").replace(/(<([^>]+)>)/g, "");  // Replace <br> tags with newline - Strip all other HTML tags
   
       return {
         title: Request_Title,
         name: Requestor,
-        description: descriptionText,
+        description: Description ? Description.replace(/<br\s*\/?>/g, "\n").replace(/(<([^>]+)>)/g, "") : '',
         date: new Date(Request_Date)
       }
     })
