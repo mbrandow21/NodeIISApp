@@ -515,6 +515,9 @@ class Dashboard extends HTMLElement {
       // confetti
       isFireActive = false;
       isConfettiActive = true;
+    } else {
+      isFireActive = false;
+      isConfettiActive = false;
     }
     
     const openedDaysBack = this.currTickets.filter(ticket => new Date(ticket.Request_Date) > new Date(today.getDate() - this.daysBack)).length;
