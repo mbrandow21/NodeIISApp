@@ -5,6 +5,7 @@ const router = express.Router();
 const log = require('../middleware/logger.js');
 
 const { githubWeekhookAuth } = require('../middleware/keyAuth.js');
+const { ensureAuthenticatedForAPI } = require('../middleware/authorization.js');
 
 router.post('/deploy', githubWeekhookAuth, (req, res) => {
     // Before executing, check for some kind of authorization here
@@ -20,7 +21,7 @@ router.post('/deploy', githubWeekhookAuth, (req, res) => {
     });
 });
 
-router.get('/logs', (req, res) => {
+router.get('/logs', ensureAuthenticatedForAPI, (req, res) => {
     const logFilePath = path.join(__dirname, '..', 'logs', 'access.log');
     
     fs.readFile(logFilePath, 'utf8', (err, data) => {

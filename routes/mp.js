@@ -3,6 +3,7 @@ const router = express.Router();
 
 const MinistryPlatformAPI = require('ministry-platform-api-wrapper');
 
+const { ensureAuthenticatedForAPI } = require('../middleware/authorization.js');
 // router.get('/tickets', async (req, res) => {
 //   try {
 //     let count = 0;
@@ -21,7 +22,7 @@ const MinistryPlatformAPI = require('ministry-platform-api-wrapper');
 //     res.status(500).send('Internal server error');
 //   }
 // });
-router.get('/tickets', async (req, res) => {
+router.get('/tickets', ensureAuthenticatedForAPI, async (req, res) => {
   try {    
     const [data] = await MinistryPlatformAPI.request('post', '/procs/api_Widget_HelpdeskTickets', {}, {});
     res.send(data);
@@ -31,7 +32,7 @@ router.get('/tickets', async (req, res) => {
   }
 });
 
-router.get('/ticket-tags', async (req, res) => {
+router.get('/ticket-tags', ensureAuthenticatedForAPI, async (req, res) => {
   try {
     const data = await MinistryPlatformAPI.request('get', '/tables/Helpdesk_Tags', {}, {});
     res.send(data);
@@ -40,7 +41,7 @@ router.get('/ticket-tags', async (req, res) => {
   }
 });
 
-router.get('/ticket-methods', async (req, res) => {
+router.get('/ticket-methods', ensureAuthenticatedForAPI, async (req, res) => {
   try {
     const data = await MinistryPlatformAPI.request('get', '/tables/IT_Ticket_Request_Methods', {}, {});
     res.send(data);
@@ -49,7 +50,7 @@ router.get('/ticket-methods', async (req, res) => {
   }
 });
 
-router.get('/tickets-by-team', async (req, res) => {
+router.get('/tickets-by-team', ensureAuthenticatedForAPI, async (req, res) => {
   try {
     const { daysBack = 30 } = req.query;
     const [data] = await MinistryPlatformAPI.request('post', '/procs/PHCGetMinistriesTickets', {}, {"@daysBack":daysBack});

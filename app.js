@@ -53,6 +53,7 @@ app.use('/api/server', require('./routes/server.js'));
 app.use('/api/auth', require('./routes/auth.js'));
 app.use('/api/mp', require('./routes/mp.js'));
 app.use('/api/helpdesk', require('./routes/helpdesk-socket.js'));
+app.use('/api/widgets', require('./routes/widgets.js'));
 // Navigation routing
 app.use('/', require('./routes/index'));
 

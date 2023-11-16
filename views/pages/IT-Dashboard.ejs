@@ -4,12 +4,20 @@
   <%- include('../components/head'); %>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/84/three.min.js"></script>
+  <script src="https://cdn.rawgit.com/mattatz/THREE.Fire/master/FireShader.js"></script>
+  <script src="https://cdn.rawgit.com/mattatz/THREE.Fire/master/Fire.js"></script>
+  <script src="/scripts/fire.js" defer></script>
+  <script src="/scripts/confetti.js" defer></script>
+
   <title>PHC - IT Dashboard</title>
 </head>
 <body id="dashboard-page">
+  <canvas id="confetti"></canvas>
   <%- include('../components/loading'); %>
-
+  
   <helpdesk-dashboard></helpdesk-dashboard>
+  
   
   <script src="/socket.io/socket.io.js"></script>
   <script src="/scripts/helpdeskDashboard.js"></script>

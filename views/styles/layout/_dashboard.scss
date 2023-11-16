@@ -15,6 +15,7 @@ $kpiValueHeight: calc(($chartContainerHeight - ($smallGap * 2) - (($defaultBorde
 
 #dashboard-page {
   @include blobBackground;
+  // overflow: hidden;
 
 }
 helpdesk-dashboard {
@@ -128,4 +129,19 @@ helpdesk-dashboard {
       }
     }
   }
+}
+
+// canvas {
+//   position: absolute;
+//   inset: 0;
+//   z-index: -1;
+// }
+#confetti {
+  overflow-y: hidden;
+  overflow-x: hidden;
+  width: 100%;
+  margin: 0;
+  height: 100%;
+  position: absolute;
+  top: 0;
 }

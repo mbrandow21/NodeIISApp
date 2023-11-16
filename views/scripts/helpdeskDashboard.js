@@ -506,6 +506,16 @@ class Dashboard extends HTMLElement {
     const today = new Date();
     const openedToday = this.currTickets.filter(ticket => new Date(ticket.Request_Date).getMonth() == today.getMonth() && new Date(ticket.Request_Date).getDate() == today.getDate()).length;
     const resolvedToday = this.currTickets.filter(ticket => ticket.Status == 3 && new Date(ticket.Resolve_Date).getMonth() == today.getMonth() && new Date(ticket.Resolve_Date).getDate() == today.getDate()).length;
+
+    if (openedToday > resolvedToday) {
+      // fire
+      isFireActive = true;
+      isConfettiActive = false;
+    } else if (resolvedToday > openedToday) {
+      // confetti
+      isFireActive = false;
+      isConfettiActive = true;
+    }
     
     const openedDaysBack = this.currTickets.filter(ticket => new Date(ticket.Request_Date) > new Date(today.getDate() - this.daysBack)).length;
     const resolvedDaysBack = this.currTickets.filter(ticket => ticket.Status == 3 && new Date(ticket.Resolve_Date) > new Date(today.getDate() - this.daysBack)).length;

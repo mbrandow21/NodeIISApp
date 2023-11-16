@@ -702,4 +702,14 @@ helpdesk-dashboard .recent-tickets-container .recent-ticket .ticket-description 
 helpdesk-dashboard .recent-tickets-container .recent-ticket h1, helpdesk-dashboard .recent-tickets-container .recent-ticket h2, helpdesk-dashboard .recent-tickets-container .recent-ticket p {
   color: #FFF;
   margin: 0;
+}
+
+#confetti {
+  overflow-y: hidden;
+  overflow-x: hidden;
+  width: 100%;
+  margin: 0;
+  height: 100%;
+  position: absolute;
+  top: 0;
 }/*# sourceMappingURL=main.css.map */
