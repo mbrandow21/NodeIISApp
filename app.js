@@ -8,6 +8,7 @@ const http = require('http');
 // const socketIo = require('socket.io');
 const flash = require('connect-flash');
 const socketSingleton = require('./middleware/socketSingleton.js');
+var cors = require('cors');
 
 // import local function
 const connectDB = require('./db/connect.js');
@@ -38,6 +39,7 @@ app.use(session({
   cookie: { secure: process.env.SESSION_SECRET === 'production', maxAge: 1000 * 60 * 60 * 24 }
 }));
 
+app.use(cors());
 // Package size middleware
 app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({limit: '50mb', extended: true}));
@@ -58,7 +60,7 @@ app.use('/api/widgets', require('./routes/widgets.js'));
 app.use('/', require('./routes/index'));
 
 // Start the server
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 5000;
 (async () => {
   try {
       server.listen(port, () => {

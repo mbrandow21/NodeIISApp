@@ -16,7 +16,7 @@ router.get('/series/:id', async (req, res) => {
   try {    
     const { id } = req.params;
     const data = await MinistryPlatformAPI.request('get', `/tables/Pocket_Platform_Sermon_Series/${id}`, {"$select":"Sermon_Series_ID, Title, Display_Title, Subtitle, Position, Pocket_Platform_Sermon_Series.Sermon_Series_Type_ID, Sermon_Series_Type_ID_Table.Sermon_Series_Type, Series_UUID, Series_Start_Date, Pocket_Platform_Sermon_Series.Congregation_ID, Congregation_ID_Table.Congregation_Name, dp_fileUniqueId AS \"UniqueFileId\""}, {});
-    res.send(data);
+    res.send(data[0]);
   } catch (error) {
     console.log(error);
     res.status(500).send('Internal server error');
