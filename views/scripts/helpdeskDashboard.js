@@ -266,7 +266,7 @@ class Dashboard extends HTMLElement {
     
     const daysOpenTickets = daysList.map(day => chartTickets.filter(ticket => new Date(ticket.Request_Date).toLocaleDateString() == day).length)
 
-    const daysResolvedTickets = daysList.map(day => chartTickets.filter(ticket => new Date(ticket.Resolve_Date).toLocaleDateString() == day && ticket.Status == 3).length)
+    const daysResolvedTickets = daysList.map(day => chartTickets.filter(ticket => new Date(ticket.Resolve_Date).toLocaleDateString() == day && ticket.Status_ID == 3).length)
     
     return {
       type: 'line',
@@ -463,7 +463,7 @@ class Dashboard extends HTMLElement {
     const today = new Date();
     const chartTickets = this.allTickets.filter(ticket => new Date(ticket.Resolve_Date).getFullYear() == today.getFullYear() && new Date(ticket.Request_Date).getFullYear() == today.getFullYear());
     const uniqueAgents = [...new Set(chartTickets.filter(ticket => ticket.Agent !== null).map(ticket => ticket.Agent).sort())]
-    const resolvedTickets = chartTickets.filter(ticket => ticket.Status == 3 && ticket.Resolve_Date !== null);
+    const resolvedTickets = chartTickets.filter(ticket => ticket.Status_ID == 3 && ticket.Resolve_Date !== null);
     const avgResolveHours = [];
     
     for (const agent of uniqueAgents) {
@@ -524,7 +524,7 @@ class Dashboard extends HTMLElement {
     const resolvedDaysBack = this.currTickets.filter(ticket => ticket.Status == 3 && new Date(ticket.Resolve_Date) > new Date(today.getDate() - this.daysBack)).length;
 
     const YTDOpen = this.allTickets.filter(ticket => new Date(ticket.Request_Date).getFullYear() == today.getFullYear()).length;
-    const YTDResolved = this.allTickets.filter(ticket => ticket.Status == 3 && new Date(ticket.Resolve_Date).getFullYear() == today.getFullYear() ).length;
+    const YTDResolved = this.allTickets.filter(ticket => ticket.Status_ID == 3 && new Date(ticket.Resolve_Date).getFullYear() == today.getFullYear() ).length;
 
     return [
       {
