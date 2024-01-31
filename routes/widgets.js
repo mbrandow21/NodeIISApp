@@ -104,13 +104,13 @@ router.get("/sermon-links/:sermonId", async (req, res) => {
 // PHC ARTICLES WIDGETS
 router.get("/articles", async (req, res) => {
   try {
-    const data = await await await MinistryPlatformAPI.request(
+    const data = await MinistryPlatformAPI.request(
       "get",
       "/tables/PHC_Articles",
       {
         $select:
-          "PHC_Article_ID, Title, Publish_Date, PHC_Articles.[PHC_Article_Topic_ID], PHC_Article_Topic_ID_Table.[Topic], PHC_Articles.[PHC_Author_ID], PHC_Author_ID_Table_Contact_ID_Table.[Display_Name], Body, PHC_Article_GUID",
-        $filter: "PHC_Articles.[Enabled] = 1",
+          "PHC_Article_ID, Title, Publish_Date, PHC_Articles.[PHC_Article_Topic_ID], PHC_Article_Topic_ID_Table.[Topic], PHC_Articles.[PHC_Author_ID], PHC_Author_ID_Table_Contact_ID_Table.[Nickname] + ' ' + PHC_Author_ID_Table_Contact_ID_Table.[Last_Name] AS 'Author_Name', PHC_Author_ID_Table.[Bio] AS 'Author_Bio', PHC_Author_ID_Table.[Facebook_Account] AS 'Author_Facebook_Account', PHC_Author_ID_Table.[Instagram_Account] AS 'Author_Instagram_Account', PHC_Author_ID_Table.[Twitter_Account] AS 'Author_Twitter_Account', PHC_Author_ID_Table_Contact_ID_Table.[Contact_GUID] AS 'Author_Contact_GUID', Body, PHC_Article_GUID",
+        $filter: `PHC_Articles.[Enabled] = 1`,
       },
       {}
     );
@@ -125,12 +125,12 @@ router.get("/articles/:id", async (req, res) => {
   const { id } = req.params;
   if (!id) res.status(400).send("Missing article id");
   try {
-    const [data] = await await await MinistryPlatformAPI.request(
+    const [data] = await MinistryPlatformAPI.request(
       "get",
       "/tables/PHC_Articles",
       {
         $select:
-          "PHC_Article_ID, Title, Publish_Date, PHC_Articles.[PHC_Article_Topic_ID], PHC_Article_Topic_ID_Table.[Topic], PHC_Articles.[PHC_Author_ID], PHC_Author_ID_Table_Contact_ID_Table.[Display_Name], Body, PHC_Article_GUID",
+          "PHC_Article_ID, Title, Publish_Date, PHC_Articles.[PHC_Article_Topic_ID], PHC_Article_Topic_ID_Table.[Topic], PHC_Articles.[PHC_Author_ID], PHC_Author_ID_Table_Contact_ID_Table.[Nickname] + ' ' + PHC_Author_ID_Table_Contact_ID_Table.[Last_Name] AS 'Author_Name', PHC_Author_ID_Table.[Bio] AS 'Author_Bio', PHC_Author_ID_Table.[Facebook_Account] AS 'Author_Facebook_Account', PHC_Author_ID_Table.[Instagram_Account] AS 'Author_Instagram_Account', PHC_Author_ID_Table.[Twitter_Account] AS 'Author_Twitter_Account', PHC_Author_ID_Table_Contact_ID_Table.[Contact_GUID] AS 'Author_Contact_GUID', Body, PHC_Article_GUID",
         $filter: `PHC_Articles.[Enabled] = 1 AND PHC_Article_ID=${id}`,
       },
       {}
@@ -156,6 +156,36 @@ router.get("/article-graphic/:id", async (req, res) => {
       FileData && FileData.UniqueFileId
         ? `https://my.pureheart.org/ministryplatformapi/files/${FileData.UniqueFileId}`
         : "https://www.pureheart.org/wp-content/uploads/2023/03/Welcome-Page-Header-1-scaled.jpg"
+    );
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal server error");
+  }
+});
+
+router.get("/author-graphic/:guid", async (req, res) => {
+  const { guid } = req.params;
+  if (!guid) res.status(400).send("Missing author guid");
+  try {
+    const [{ Contact_ID }] = await MinistryPlatformAPI.request(
+      "get",
+      "/tables/Contacts",
+      {
+        $select: "Contact_ID",
+        $filter: `Contact_GUID='${guid}'`,
+      },
+      {}
+    );
+    const [FileData] = await MinistryPlatformAPI.request(
+      "get",
+      `/files/Contacts/${Contact_ID}`,
+      { $default: "true" },
+      {}
+    );
+    return res.redirect(
+      FileData && FileData.UniqueFileId
+        ? `https://my.pureheart.org/ministryplatformapi/files/${FileData.UniqueFileId}`
+        : "https://www.pureheart.org/wp-content/uploads/2024/01/default-user.jpg"
     );
   } catch (error) {
     console.log(error);
