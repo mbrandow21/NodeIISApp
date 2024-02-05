@@ -155,6 +155,8 @@
 .article-card .article-card-content p,
 .article-card .article-card-content h1 {
   margin: 0;
+  padding: 0;
+  color: white;
 }
 .article-card .article-card-content p.left,
 .article-card .article-card-content h1.left {
