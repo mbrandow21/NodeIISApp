@@ -1,0 +1,262 @@
+.phc-btn {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  padding: 0.5rem 2rem;
+  font-size: 20px;
+  cursor: pointer;
+  border-radius: 0;
+  border: 1px solid white;
+  color: white;
+  background-color: #7b2d26;
+  text-transform: uppercase;
+  font-weight: 200;
+}
+
+.loader-container {
+  width: 100%;
+  height: 60px;
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+.loader-container .loader-ring {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  box-sizing: border-box;
+  border: 5px solid #4a95ec;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: loaderRotate 1.25s infinite linear;
+}
+.loader-container .loader-ring::before, .loader-container .loader-ring::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border-radius: 50%;
+  transform: translate(-50%, -50%) rotateZ(-45deg) translateX(27.5px);
+  width: 5px;
+  height: 5px;
+  background-color: #4a95ec;
+}
+.loader-container .loader-ring::after {
+  transform: translate(-50%, -50%) rotateZ(-135deg) translateX(27.5px);
+}
+
+@keyframes loaderRotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.article-filters {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+  width: 1500px;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0.5rem;
+  box-sizing: border-box;
+}
+.article-filters .filter-option {
+  position: relative;
+  background-color: #f6f7f9;
+  border-radius: 4px;
+  width: 100%;
+  min-width: 140px;
+}
+.article-filters .filter-option select,
+.article-filters .filter-option input {
+  box-sizing: border-box;
+  border: none;
+  padding: 28px 13px 12px 13px;
+  width: 100%;
+  background-color: inherit;
+}
+.article-filters .filter-option select {
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" fill="black"><polygon points="0,0 100,0 50,50"/></svg>') no-repeat 95% 50% !important;
+  background-size: 12px !important;
+  background-position: calc(100% - 20px) center !important;
+  background-repeat: no-repeat;
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+}
+.article-filters .filter-option label {
+  padding: 2px 5px;
+  font-size: 12px;
+  position: absolute;
+  left: 5px;
+  top: 1px;
+}
+
+.article-card-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  padding: 0.5rem;
+  width: 1500px;
+  box-sizing: border-box;
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+@media screen and (max-width: 768px) {
+  .article-filters,
+  .article-card-container {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media screen and (max-width: 525px) {
+  .article-filters,
+  .article-card-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+.article-card {
+  width: 100%;
+  max-width: 500px;
+  aspect-ratio: 16/9;
+  position: relative;
+  display: flex;
+  font-size: clamp(0.75rem, 1vw, 1rem);
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.article-card .background-image-container {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+.article-card .background-image-container img {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+.article-card .article-card-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+  align-content: end;
+  width: 100%;
+  padding: 5%;
+  background: linear-gradient(transparent 50%, #000);
+}
+.article-card .article-card-content * {
+  text-shadow: #000 0 0 8px;
+}
+.article-card .article-card-content p,
+.article-card .article-card-content h1 {
+  margin: 0;
+}
+.article-card .article-card-content p.left,
+.article-card .article-card-content h1.left {
+  margin-right: auto;
+}
+.article-card .article-card-content p.right,
+.article-card .article-card-content h1.right {
+  margin-left: auto;
+}
+.article-card .article-card-content h1 {
+  grid-column: 1/3;
+  font-size: clamp(1rem, 1.2vw, 1.5rem);
+}
+.article-card .article-card-content .read-time {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 6px 10px;
+  font-size: 12px;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+.article-card.large {
+  max-width: none;
+  font-size: 1.2em;
+}
+.article-card.large h1 {
+  font-size: clamp(1rem, 3.6vw, 2.5rem);
+}
+.article-card.large .article-card-content {
+  padding: 2.5%;
+}
+
+phc-article {
+  width: 1000px;
+  max-width: 90vw;
+  margin: 2rem auto;
+  display: grid;
+}
+phc-article .article-content {
+  margin: 1rem;
+}
+phc-article .author-container {
+  display: flex;
+  margin: 0 2rem;
+}
+phc-article .author-container .author-content {
+  flex: 1;
+  padding: 0.5rem;
+  padding-right: 2rem;
+  border-right: 1px solid black;
+}
+phc-article .author-container .author-content .author-pfp {
+  width: 100%;
+  border-radius: 50%;
+  outline: 4px solid #7b2d26;
+  outline-offset: 2px;
+}
+phc-article .author-container .author-content .author-name {
+  text-align: center;
+  margin: 0;
+  margin-top: 1rem;
+  text-transform: uppercase;
+  font-size: 1rem;
+}
+phc-article .author-container .author-bio {
+  flex: 6;
+  padding: 0.5rem;
+  padding-left: 2rem;
+  display: flex;
+  flex-direction: column;
+}
+phc-article .author-container .author-bio p {
+  margin: 0;
+}
+phc-article .author-container .author-bio .author-socials {
+  display: flex;
+  margin-top: auto;
+  font-size: 1.5rem;
+  gap: 0.5rem;
+}
+phc-article .author-container .author-bio .author-socials a {
+  color: black;
+}
+@media screen and (max-width: 768px) {
+  phc-article .author-container {
+    flex-direction: column;
+  }
+  phc-article .author-container .author-content {
+    display: flex;
+    align-items: center;
+    border: none;
+    padding: 0;
+  }
+  phc-article .author-container .author-content .author-pfp {
+    max-width: 60px;
+  }
+  phc-article .author-container .author-content .author-name {
+    margin: 0 1rem;
+    font-size: 1.5rem;
+  }
+  phc-article .author-container .author-bio {
+    padding: 0;
+    padding-top: 1rem;
+  }
+}/*# sourceMappingURL=main.css.map */

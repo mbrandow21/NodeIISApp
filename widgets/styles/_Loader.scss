@@ -1,0 +1,52 @@
+$loaderSize: 60px;
+$loaderRingThickness: 5px;
+$loaderRingColor: #4a95ec;
+
+.loader-container {
+  width: 100%;
+  height: $loaderSize;
+  // outline: 1px solid lime;
+  position: relative;
+
+  display: grid;
+  place-items: center;
+
+  .loader-ring {
+    position: absolute;
+    width: $loaderSize;
+    height: $loaderSize;
+    box-sizing: border-box;
+    border: $loaderRingThickness solid $loaderRingColor;
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: loaderRotate 1.25s infinite linear;
+
+
+    &::before,
+    &::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      border-radius: 50%;
+      transform: translate(-50%, -50%) rotateZ(-45deg) translateX(calc(($loaderSize - $loaderRingThickness) / 2));
+      width: $loaderRingThickness;
+      height: $loaderRingThickness;
+      background-color: $loaderRingColor;
+    }
+
+    &::after {
+      transform: translate(-50%, -50%) rotateZ(-135deg) translateX(calc(($loaderSize - $loaderRingThickness) / 2));
+    }
+  }
+}
+
+@keyframes loaderRotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

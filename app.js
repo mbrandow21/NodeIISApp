@@ -45,10 +45,16 @@ app.use(express.json({limit: '50mb'}));
 app.use(express.urlencoded({limit: '50mb', extended: true}));
 app.use(flash());
 
-// Static file middleware
+// Static file routes
 app.use("/styles", express.static(__dirname + "/views/styles"));
 app.use("/scripts", express.static(__dirname + "/views/scripts"));
 app.use("/assets", express.static(__dirname + "/views/assets"));
+
+// Widget Styling
+app.use("/widgets/styles", express.static(__dirname + "/widgets/styles"));
+
+// Widget Script Route
+app.use("/widgets/dist", express.static(__dirname + "/dist"))
 
 // API routing
 app.use('/api/server', require('./routes/server.js'));
