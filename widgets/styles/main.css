@@ -169,6 +169,7 @@
 .article-card .article-card-content h1 {
   grid-column: 1/3;
   font-size: clamp(1rem, 1.2vw, 1.5rem);
+  font-weight: bold;
 }
 .article-card .article-card-content .read-time {
   position: absolute;
