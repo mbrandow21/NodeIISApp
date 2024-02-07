@@ -109,7 +109,7 @@ router.get("/articles", async (req, res) => {
       "/tables/PHC_Articles",
       {
         $select:
-          "PHC_Article_ID, Title, Publish_Date, PHC_Articles.[PHC_Article_Topic_ID], PHC_Article_Topic_ID_Table.[Topic], PHC_Articles.[PHC_Author_ID], PHC_Author_ID_Table_Contact_ID_Table.[Nickname] + ' ' + PHC_Author_ID_Table_Contact_ID_Table.[Last_Name] AS 'Author_Name', PHC_Author_ID_Table.[Bio] AS 'Author_Bio', PHC_Author_ID_Table.[Facebook_Account] AS 'Author_Facebook_Account', PHC_Author_ID_Table.[Instagram_Account] AS 'Author_Instagram_Account', PHC_Author_ID_Table.[Twitter_Account] AS 'Author_Twitter_Account', PHC_Author_ID_Table_Contact_ID_Table.[Contact_GUID] AS 'Author_Contact_GUID', Body, PHC_Article_GUID",
+          "PHC_Article_ID, Views, Title, Publish_Date, PHC_Articles.[PHC_Article_Topic_ID], PHC_Article_Topic_ID_Table.[Topic], PHC_Articles.[PHC_Author_ID], PHC_Author_ID_Table_Contact_ID_Table.[Nickname] + ' ' + PHC_Author_ID_Table_Contact_ID_Table.[Last_Name] AS 'Author_Name', PHC_Author_ID_Table.[Bio] AS 'Author_Bio', PHC_Author_ID_Table.[Facebook_Account] AS 'Author_Facebook_Account', PHC_Author_ID_Table.[Instagram_Account] AS 'Author_Instagram_Account', PHC_Author_ID_Table.[Twitter_Account] AS 'Author_Twitter_Account', PHC_Author_ID_Table_Contact_ID_Table.[Contact_GUID] AS 'Author_Contact_GUID', Body, PHC_Article_GUID",
         $filter: `PHC_Articles.[Enabled] = 1`,
       },
       {}

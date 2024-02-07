@@ -1,9 +1,8 @@
 const path = require('path');
 
 module.exports = {
-  // mode: 'development',
   mode: 'production',
-  entry: './widgets/index.js', // Assume this is your modified script
+  entry: './widgets/PHCWidgets.jsx',
   output: {
     filename: 'PHCWidgets.js',
     path: path.resolve(__dirname, 'dist'),
@@ -11,12 +10,12 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env'],
+            presets: ['@babel/preset-react'],
           },
         },
       }

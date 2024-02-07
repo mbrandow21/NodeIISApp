@@ -1,7 +1,7 @@
-import { html, useState, useEffect } from "../util/preactCentral.js";
+// import { html, useState, useEffect } from "../util/preactCentral.js";
+import React, { useState, useEffect } from 'react';
 
-export default function PHCLogin({ userData, setUserData }) {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+const PHCLogin = ({ userData, setUserData }) => {
   const localStoragePrefix = "mpp-widgets";
 
   const phcGetAppRoot = () => {
@@ -203,7 +203,6 @@ export default function PHCLogin({ userData, setUserData }) {
       };
 
       setUserData(userData);
-      setIsAuthenticated(true);
     });
 
   useEffect(() => {
@@ -225,27 +224,16 @@ export default function PHCLogin({ userData, setUserData }) {
     }
   }, []);
 
-  // return html`
-  //   <div class="phc-user-login-container">
-  //     ${!isAuthenticated &&
-  //     html`<button class="phc-btn" id="phc-loginButton" onClick=${phcSignIn}>
-  //       Log In
-  //     </button>`}
-  //     ${isAuthenticated &&
-  //     html`<button class="phc-btn" id="phc-logoutButton" onClick=${phcSignOut}>
-  //       Log Out
-  //     </button>`}
-  //   </div>
-  // `;
-
   if (userData === null) return;
   
-  return html`
-  <div class="phc-user-login-container">
-    ${!Object.keys(userData).length
-      ? html`<button class="phc-btn" id="phc-loginButton" onClick=${phcSignIn}>Log In</button>`
-      : html`<button class="phc-btn" id="phc-logoutButton" onClick=${phcSignOut}>Log Out</button>`
-    }
+  return (
+    <div className="phc-user-login-container">
+      {!Object.keys(userData).length
+        ? <button className="phc-btn" id="phc-loginButton" onClick={phcSignIn}>Log In</button>
+        : <button className="phc-btn" id="phc-logoutButton" onClick={phcSignOut}>Log Out</button>
+      }
     </div>
-  `;
+  );
 }
+
+export default PHCLogin;
