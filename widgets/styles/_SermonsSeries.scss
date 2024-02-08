@@ -15,6 +15,20 @@ phc-series-finder {
       overflow: hidden;
       box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
+      &:focus-within {
+        outline: 2px solid black;
+        outline-offset: 2px;
+
+      }
+
+      &:hover,
+      &:focus-within {
+
+        .series-image-container img {
+          transform: scale(1.05);
+        }
+      }
+
       a,
       p {
         color: inherit;
@@ -31,6 +45,7 @@ phc-series-finder {
         background-color: rgba(0, 0, 0, .75);
         padding: 0.75rem;
         box-sizing: border-box;
+        z-index: 1;
 
         p {
           font-weight: bold;
@@ -41,9 +56,16 @@ phc-series-finder {
         }
       }
 
-      .series-image-container img {
-        width: 100%;
-        display: block;
+      .series-image-container {
+        overflow: hidden;
+        aspect-ratio: 16 / 9;
+
+        img {
+          width: 100%;
+          height: 100%;
+          display: block;
+          transition: transform 250ms ease;
+        }
       }
 
       .view-more-link {
@@ -56,10 +78,132 @@ phc-series-finder {
         margin: 0;
         text-transform: uppercase;
       }
-
-      a:hover .series-image-container {
-        outline: 1px solid lime;
-      }
     }
+  }
+
+  .series-button-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    button {
+      margin: 1rem 0;
+      padding: 0.75rem 1rem;
+      border: none;
+      background-color: #7B2D26;
+      color: white;
+      font-weight: bold;
+      text-transform: uppercase;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  }
+}
+
+phc-series-details {
+  width: 90vw;
+  max-width: 1500px;
+  margin: 1rem auto;
+  margin-top: 0;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  background-color: #ecf0f1;
+
+
+
+  #series-row {
+    display: flex;
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  #series-head-row {
+    display: flex;
+    padding: 0 1rem;
+  }
+
+  #series-head-row a {
+    color: black;
+    text-decoration: none;
+    padding: 1rem 0;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  @media screen and (max-width: 768px) {
+    #series-head-row {
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    #series-head-row #series-title {
+      order: 999;
+      width: 100%;
+    }
+  }
+
+  #series-title {
+    color: black;
+    text-align: center;
+    text-transform: uppercase;
+    margin: 0 auto;
+    padding: .5rem 0;
+  }
+
+  #sermon-image-container {
+    box-sizing: border-box;
+    width: 50%;
+    padding-right: 0;
+  }
+
+  #sermon-image-container #series-info-row {
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  #series-info-row p {
+    margin: 0;
+    margin-right: 2rem;
+    padding: 0;
+  }
+
+  #series-info-row button {
+    margin: .5rem 0;
+    margin-left: auto;
+    padding: .75rem 1rem;
+    border: none;
+    background-color: #7B2D26;
+    color: white;
+    height: max-content;
+    font-weight: bold;
+    text-transform: uppercase;
+    border-radius: 4px;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  img {
+    width: 100%;
+    display: block;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  }
+
+  #sermon-content {
+    display: flex;
+    flex-direction: column;
+    gap: .25rem;
+    box-sizing: border-box;
+    width: 50%;
+    height: calc(22.833vw + 55px);
+    max-height: 406px;
+    padding: .25rem;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background-color: rgba(50, 50, 50, 0.25);
+  }
+
+  #sermon-content h1 {
+    text-align: center;
+    padding: 1rem 0;
   }
 }

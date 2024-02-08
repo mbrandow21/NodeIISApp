@@ -89,10 +89,7 @@ const Article = ({ requestURL, setError }) => {
         ></div>
         <div className="author-container">
           <div className="author-content">
-            {Author_Contact_GUID && <img
-              className="author-pfp"
-              src={`${requestURL}/api/widgets/author-graphic/${Author_Contact_GUID}`}
-            />}
+            {Author_Contact_GUID && <div className="author-pfp-container" style={{backgroundImage:`URL(${requestURL}/api/widgets/author-graphic/${Author_Contact_GUID})`}}></div>}
             <h2 className="author-name">{Author_Name}</h2>
           </div>
           <div className="author-bio">

@@ -209,11 +209,15 @@ phc-article .author-container .author-content {
   padding-right: 2rem;
   border-right: 1px solid black;
 }
-phc-article .author-container .author-content .author-pfp {
-  width: 100%;
+phc-article .author-container .author-content .author-pfp-container {
+  width: 150px;
+  aspect-ratio: 1;
   border-radius: 50%;
   outline: 4px solid #7b2d26;
   outline-offset: 2px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 phc-article .author-container .author-content .author-name {
   text-align: center;
@@ -251,8 +255,8 @@ phc-article .author-container .author-bio .author-socials a {
     border: none;
     padding: 0;
   }
-  phc-article .author-container .author-content .author-pfp {
-    max-width: 60px;
+  phc-article .author-container .author-content .author-pfp-container {
+    width: 75px;
   }
   phc-article .author-container .author-content .author-name {
     margin: 0 1rem;
@@ -281,6 +285,13 @@ phc-series-finder .series-card-container .series {
   overflow: hidden;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
+phc-series-finder .series-card-container .series:focus-within {
+  outline: 2px solid black;
+  outline-offset: 2px;
+}
+phc-series-finder .series-card-container .series:hover .series-image-container img, phc-series-finder .series-card-container .series:focus-within .series-image-container img {
+  transform: scale(1.05);
+}
 phc-series-finder .series-card-container .series a,
 phc-series-finder .series-card-container .series p {
   color: inherit;
@@ -296,6 +307,7 @@ phc-series-finder .series-card-container .series .series-banner {
   background-color: rgba(0, 0, 0, 0.75);
   padding: 0.75rem;
   box-sizing: border-box;
+  z-index: 1;
 }
 phc-series-finder .series-card-container .series .series-banner p {
   font-weight: bold;
@@ -303,9 +315,15 @@ phc-series-finder .series-card-container .series .series-banner p {
 phc-series-finder .series-card-container .series .series-banner a:hover {
   text-decoration: underline;
 }
+phc-series-finder .series-card-container .series .series-image-container {
+  overflow: hidden;
+  aspect-ratio: 16/9;
+}
 phc-series-finder .series-card-container .series .series-image-container img {
   width: 100%;
+  height: 100%;
   display: block;
+  transition: transform 250ms ease;
 }
 phc-series-finder .series-card-container .series .view-more-link {
   background-color: #7B2D26;
@@ -317,6 +335,113 @@ phc-series-finder .series-card-container .series .view-more-link {
   margin: 0;
   text-transform: uppercase;
 }
-phc-series-finder .series-card-container .series a:hover .series-image-container {
-  outline: 1px solid lime;
+phc-series-finder .series-button-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+phc-series-finder .series-button-container button {
+  margin: 1rem 0;
+  padding: 0.75rem 1rem;
+  border: none;
+  background-color: #7B2D26;
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+phc-series-details {
+  width: 90vw;
+  max-width: 1500px;
+  margin: 1rem auto;
+  margin-top: 0;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  background-color: #ecf0f1;
+}
+phc-series-details #series-row {
+  display: flex;
+  padding: 1rem;
+  gap: 1rem;
+}
+phc-series-details #series-head-row {
+  display: flex;
+  padding: 0 1rem;
+}
+phc-series-details #series-head-row a {
+  color: black;
+  text-decoration: none;
+  padding: 1rem 0;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+@media screen and (max-width: 768px) {
+  phc-series-details #series-head-row {
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  phc-series-details #series-head-row #series-title {
+    order: 999;
+    width: 100%;
+  }
+}
+phc-series-details #series-title {
+  color: black;
+  text-align: center;
+  text-transform: uppercase;
+  margin: 0 auto;
+  padding: 0.5rem 0;
+}
+phc-series-details #sermon-image-container {
+  box-sizing: border-box;
+  width: 50%;
+  padding-right: 0;
+}
+phc-series-details #sermon-image-container #series-info-row {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+phc-series-details #series-info-row p {
+  margin: 0;
+  margin-right: 2rem;
+  padding: 0;
+}
+phc-series-details #series-info-row button {
+  margin: 0.5rem 0;
+  margin-left: auto;
+  padding: 0.75rem 1rem;
+  border: none;
+  background-color: #7B2D26;
+  color: white;
+  height: -moz-max-content;
+  height: max-content;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+phc-series-details img {
+  width: 100%;
+  display: block;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+phc-series-details #sermon-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  box-sizing: border-box;
+  width: 50%;
+  height: calc(22.833vw + 55px);
+  max-height: 406px;
+  padding: 0.25rem;
+  overflow-y: scroll;
+  overflow-x: hidden;
+  background-color: rgba(50, 50, 50, 0.25);
+}
+phc-series-details #sermon-content h1 {
+  text-align: center;
+  padding: 1rem 0;
 }/*# sourceMappingURL=main.css.map */

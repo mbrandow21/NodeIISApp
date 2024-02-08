@@ -4,6 +4,8 @@ import Loader from "./Loader.jsx";
 const SeriesFinder = ({ requestURL, targeturl, setError }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [seriesList, setSeriesList] = useState([]);
+  const [pageIndex, setPageIndex] = useState(0);
+  const seriesPerPage = 12;
 
   const getSeries = async () => {
     return fetch(`${requestURL}/api/widgets/series`)
@@ -30,25 +32,33 @@ const SeriesFinder = ({ requestURL, targeturl, setError }) => {
   }, [setIsLoading, setSeriesList]);
 
 
-  return <div className="series-card-container">
-    {seriesList.map((series, i) => {
-      const { Sermon_Series_ID, UniqueFileId, Title } = series;
-      return (
-        <div className="series">
-          {i === 0 && (
-            <div className="series-banner">
-              <p>Current Series</p>
-              <a href={`${targeturl}?id=${Sermon_Series_ID}`}>Watch Latest Sermon</a>
-            </div>
-          )}
-          <a className="series-image-container" tabIndex={-1} href={`${targeturl}?id=${Sermon_Series_ID}`}>
-            <img src={`https://my.pureheart.org/ministryplatformapi/files/${UniqueFileId}`} alt={Title} />
-          </a>
-          <a className="view-more-link" href={`${targeturl}?id=${Sermon_Series_ID}`}>View More</a>
-        </div>
-      )
-    })}
-  </div>
+  return <>
+    <div className="series-card-container">
+      {seriesList
+      .slice(seriesPerPage * pageIndex, seriesPerPage * (pageIndex + 1))
+      .map((series, i) => {
+        const { Sermon_Series_ID, UniqueFileId, Title } = series;
+        return (
+          <div className="series">
+            {i === 0 && pageIndex === 0 && (
+              <div className="series-banner">
+                <p>Current Series</p>
+                <a href={`${targeturl}?id=${Sermon_Series_ID}`}>Watch Latest Sermon</a>
+              </div>
+            )}
+            <a className="series-image-container" tabIndex={-1} href={`${targeturl}?id=${Sermon_Series_ID}`}>
+              <img src={`https://my.pureheart.org/ministryplatformapi/files/${UniqueFileId}`} alt={Title} />
+            </a>
+            <a className="view-more-link" href={`${targeturl}?id=${Sermon_Series_ID}`}>View More</a>
+          </div>
+        )
+      })}
+    </div>
+    <div className="series-button-container">
+      <button onClick={() => setPageIndex(pageIndex > 0 ? pageIndex - 1 : 0)}>Back</button>
+      <button onClick={() => setPageIndex(pageIndex < Math.round(seriesList.length / seriesPerPage) ? pageIndex + 1 : Math.round(seriesList.length / seriesPerPage))}>Forward</button>
+    </div>
+  </>
     
 }
 

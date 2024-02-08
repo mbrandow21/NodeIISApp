@@ -173,12 +173,19 @@ phc-article {
       padding-right: 2rem;
       border-right: 1px solid black;
 
-      .author-pfp {
-        width: 100%;
+      .author-pfp-container {
+        // width: 100%;
+        width: 150px;
+        aspect-ratio: 1;
         border-radius: 50%;
         outline: 4px solid #7b2d26;
         outline-offset: 2px;
+
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
       }
+
 
       .author-name {
         text-align: center;
@@ -218,13 +225,12 @@ phc-article {
 
       .author-content {
         display: flex;
-        // align-items: flex-end;
         align-items: center;
         border: none;
         padding: 0;
 
-        .author-pfp {
-          max-width: 60px;
+        .author-pfp-container {
+          width: 75px;
         }
 
         .author-name {

@@ -3,6 +3,7 @@ import PHCLogin from "./PHCLogin.jsx";
 import ArticleFinder from "./ArticleFinder.jsx";
 import Article from "./Article.jsx";
 import SeriesFinder from "./SeriesFinder.jsx";
+import SeriesDetails from "./SeriesDetails.jsx";
 
 export default [
   {
@@ -24,5 +25,9 @@ export default [
   {
     name: "phc-series-finder",
     Component: SeriesFinder
+  },
+  {
+    name: "phc-series-details",
+    Component: SeriesDetails
   }
 ]
