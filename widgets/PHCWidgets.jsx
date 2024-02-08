@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { createRoot } from 'react-dom/client';
 import widgetsRegistry from './components/index.js';
+
 import EventBus from './util/EventEmitter.jsx';
 
-// const requestURL = 'https://dev.phc.events';
-const requestURL = 'http://localhost:5000';
+const requestURL = 'https://dev.phc.events';
+// const requestURL = 'http://localhost:5000';
 
 const AuthComponent = ({ Component, props }) => {
   const [user, setUser] = useState(null);
@@ -71,7 +72,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Dynamically add CSS
   const PHCStyleTag = document.createElement("link");
   PHCStyleTag.rel = "stylesheet";
-  // PHCStyleTag.href = "./styles/main.css";
-  PHCStyleTag.href = "https://dev.phc.events/widgets/styles/main.css";
+  PHCStyleTag.href = `${requestURL}/widgets/styles/main.css`;
   document.head.appendChild(PHCStyleTag);
 })();

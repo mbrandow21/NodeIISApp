@@ -21,9 +21,4 @@ class EventEmitter {
   }
 }
 
-// Global event bus
-// const EventBus = new EventEmitter();
-
-// export { EventBus };
-
 export default new EventEmitter;
