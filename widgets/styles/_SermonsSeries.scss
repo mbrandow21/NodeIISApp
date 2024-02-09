@@ -1,5 +1,24 @@
+.back-btn-container {
+  display: flex;
+  width: 1500px;
+  max-width: 90vw;
+  margin: 0 auto;
+}
+
+.back-btn {
+  padding: 1rem 0;
+  color: currentColor;
+  text-decoration: none;
+  font-size: 1.25rem;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
 phc-series-finder {
   width: 1500px;
+  max-width: 90vw;
   margin: 1rem auto;
   display: block;
 
@@ -8,6 +27,14 @@ phc-series-finder {
     grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
     color: white;
+
+    @media screen and (max-width: 768px) {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @media screen and (max-width: 512px) {
+      grid-template-columns: 1fr;
+    }
 
     .series {
       position: relative;
@@ -101,109 +128,184 @@ phc-series-finder {
 }
 
 phc-series-details {
-  width: 90vw;
-  max-width: 1500px;
+  width: 1500px;
+  max-width: 90vw;
+  display: block;
   margin: 1rem auto;
-  margin-top: 0;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  background-color: #ecf0f1;
 
+  .series-details-container {
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    background-color: #ecf0f1;
 
+    .series-head-row {
+      display: flex;
+      padding: 0 1rem;
+      justify-content: space-between;
 
-  #series-row {
+      .series-title {
+        color: black;
+        text-align: center;
+        text-transform: uppercase;
+        margin: 0 auto;
+        padding: .5rem;
+      }
+
+      a {
+        color: black;
+        text-decoration: none;
+        padding: 1rem 0;
+        text-transform: uppercase;
+        white-space: nowrap;
+      }
+    }
+  }
+
+  .series-row {
     display: flex;
     padding: 1rem;
     gap: 1rem;
-  }
 
-  #series-head-row {
-    display: flex;
-    padding: 0 1rem;
-  }
+    .sermon-image-container {
+      box-sizing: border-box;
+      width: 50%;
+      padding-right: 0;
 
-  #series-head-row a {
-    color: black;
-    text-decoration: none;
-    padding: 1rem 0;
-    text-transform: uppercase;
-    white-space: nowrap;
-  }
+      img {
+        width: 100%;
+        display: block;
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+      }
 
-  @media screen and (max-width: 768px) {
-    #series-head-row {
-      flex-wrap: wrap;
-      justify-content: space-between;
+      .series-info-row {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        margin-top: 1rem;
+      }
     }
 
-    #series-head-row #series-title {
-      order: 999;
-      width: 100%;
+    .series-info-row p {
+      margin: 0;
+      margin-right: 2rem;
+      padding: 0;
+    }
+
+    .series-info-row button {
+      margin-left: auto;
+      padding: .75rem 1rem;
+      border: none;
+      background-color: #7B2D26;
+      color: white;
+      height: max-content;
+      font-weight: bold;
+      text-transform: uppercase;
+      border-radius: 4px;
+      cursor: pointer;
+      white-space: nowrap;
     }
   }
 
-  #series-title {
-    color: black;
-    text-align: center;
-    text-transform: uppercase;
-    margin: 0 auto;
-    padding: .5rem 0;
-  }
-
-  #sermon-image-container {
-    box-sizing: border-box;
-    width: 50%;
-    padding-right: 0;
-  }
-
-  #sermon-image-container #series-info-row {
-    width: 100%;
-    display: flex;
-    align-items: center;
-  }
-
-  #series-info-row p {
-    margin: 0;
-    margin-right: 2rem;
-    padding: 0;
-  }
-
-  #series-info-row button {
-    margin: .5rem 0;
-    margin-left: auto;
-    padding: .75rem 1rem;
-    border: none;
-    background-color: #7B2D26;
-    color: white;
-    height: max-content;
-    font-weight: bold;
-    text-transform: uppercase;
-    border-radius: 4px;
-    cursor: pointer;
-    white-space: nowrap;
-  }
-
-  img {
-    width: 100%;
-    display: block;
-    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  }
-
-  #sermon-content {
+  .sermon-content {
     display: flex;
     flex-direction: column;
     gap: .25rem;
     box-sizing: border-box;
     width: 50%;
-    height: calc(22.833vw + 55px);
-    max-height: 406px;
+    aspect-ratio: 2;
     padding: .25rem;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
     background-color: rgba(50, 50, 50, 0.25);
+
+    .messages {
+      display: flex;
+      width: 100%;
+      background-color: white;
+      cursor: pointer;
+      text-decoration: none;
+      color: currentColor;
+
+      img {
+        display: block;
+        max-width: 40%;
+        align-self: center;
+        box-shadow: rgba(50, 50, 50, 0.25) 2px 0px 6px 0px;
+        transition: transform 100ms linear;
+      }
+
+      .sermon-info {
+        padding: 0 1rem;
+        width: 100%;
+
+        p {
+          margin: .5rem 0;
+        }
+
+        .sermon-title {
+          font-weight: bold;
+          color: steelblue;
+        }
+      }
+
+      &:hover {
+        background-color: rgba(255, 255, 255, .75);
+
+        img {
+          transform: translateX(2.5px);
+        }
+      }
+    }
   }
 
-  #sermon-content h1 {
-    text-align: center;
-    padding: 1rem 0;
+  @media screen and (max-width: 1024px) {
+    .series-row {
+      flex-direction: column;
+
+      .sermon-image-container {
+        margin: 0 auto;
+        width: 75%;
+      }
+
+      .sermon-content {
+        width: 100%;
+        overflow: visible;
+        max-height: none;
+        height: auto;
+      }
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .series-row .sermon-image-container {
+      width: 100%;
+    }
+
+    .series-details-container .series-head-row {
+      flex-wrap: wrap;
+
+      .series-title {
+        order: 999;
+        width: 100%;
+      }
+    }
+  }
+
+  @media screen and (max-width: 512px) {
+    .sermon-content {
+      gap: .5rem;
+
+      .messages {
+        flex-direction: column;
+
+        img {
+          max-width: 100%;
+        }
+
+        .sermon-info {
+          box-sizing: border-box;
+          padding: 1rem;
+        }
+      }
+    }
   }
 }
