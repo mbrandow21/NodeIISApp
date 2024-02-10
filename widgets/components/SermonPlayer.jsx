@@ -46,6 +46,7 @@ const SermonPlayer = ({ requestURL, setError }) => {
         setWatchURL(links.find(link => link.Link_Type_ID === 1).Link_URL)
       });
       await getSermon(sermonID).then((sermon) => {
+        console.log('sermon:')
         console.log(sermon); 
         setSermon(sermon); 
         setIsLoading(false);
@@ -59,27 +60,12 @@ const SermonPlayer = ({ requestURL, setError }) => {
   return <>
     {watchURL && <ReactPlayer
         url={watchURL}
-        className='react-player'
+        className='video-player'
         // playing={true}
+        light={<img src={`https://my.pureheart.org/ministryplatformapi/files/${sermon.UniqueFileId}`} alt={sermon.Title}/>}
         controls={true}
-        width='100%'
-        height='100%'
       />}
   </>
-    
-  const url = 'https://pocketplatform-media.s3.amazonaws.com/Pure+Heart+Church/Tasks/2e2c327c-b209-4954-b743-2de963cde56f/hls/master.m3u8';
-  return (
-    <div className='player-wrapper'>
-      <ReactPlayer
-        url={url}
-        className='react-player'
-        playing={fjal}
-        controls={true}
-        width='100%'
-        height='100%'
-      />
-    </div>
-  );
 }
 
 export default SermonPlayer;

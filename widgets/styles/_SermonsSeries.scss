@@ -309,3 +309,15 @@ phc-series-details {
     }
   }
 }
+
+phc-sermon-player {
+  .video-player {
+    width: 100%;
+    height: 56vw;
+    img {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+  }
+}

@@ -75,7 +75,7 @@ router.get("/sermon/:id", async (req, res) => {
       },
       {}
     );
-    res.send(data);
+    res.send(data[0]);
   } catch (error) {
     console.log(error);
     res.status(500).send("Internal server error");
