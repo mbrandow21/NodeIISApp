@@ -345,6 +345,7 @@ phc-series-finder .series-card-container .series .series-banner a {
   padding: 0;
   text-transform: none;
   font-weight: normal;
+  cursor: pointer;
 }
 phc-series-finder .series-card-container .series .series-banner a:hover {
   text-decoration: underline;

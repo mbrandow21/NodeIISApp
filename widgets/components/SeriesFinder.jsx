@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import Loader from "./Loader.jsx";
 
-const SeriesFinder = ({ requestURL, targeturl, setError }) => {
+const SeriesFinder = ({ targeturl, watchurl, requestURL, setError }) => {
   const [isLoading, setIsLoading] = useState(true);
   const [seriesList, setSeriesList] = useState([]);
   const [pageIndex, setPageIndex] = useState(0);
@@ -21,8 +21,28 @@ const SeriesFinder = ({ requestURL, targeturl, setError }) => {
       });
   };
   
+  const watchLatest = (seriesID) => {
+    fetch(`${requestURL}/api/widgets/sermon-series/${seriesID}`)
+      .then(response => response.json())
+      .then(series => {
+        const { Sermon_ID } = series[0];
+        window.location = `${watchurl}?series=${seriesID}&id=${Sermon_ID}`
+      })
+      .catch(() => {
+        console.log('Could not retrieve latest sermon.')
+      })
+    // const currSeriesID = this.seriesList[0].Sermon_Series_ID;
+    // Promise.resolve(fetch(`${fetchURL}/sermons?SeriesID=${currSeriesID}`))
+    //     .then(response => response.json())
+    //     .then(data => {
+    //         const seriesSermons = data.sort((a,b) => new Date(b.Sermon_Date) - new Date(a.Sermon_Date))
+    //         const recentSermonID = seriesSermons[0].Sermon_ID;
+    //     })
+  }
+  
   useEffect(() => {
     if (!targeturl) setError("Missing target URL");
+    if (!watchurl) setError("Missing watch URL");
     getSeries().then((series) => {
       // console.log(series);
       setSeriesList(series);
@@ -43,7 +63,7 @@ const SeriesFinder = ({ requestURL, targeturl, setError }) => {
             {i === 0 && pageIndex === 0 && (
               <div className="series-banner">
                 <p>Current Series</p>
-                <a href={`${targeturl}?series=${Sermon_Series_ID}`}>Watch Latest Sermon</a>
+                <a href={null} onClick={() => watchLatest(Sermon_Series_ID)}>Watch Latest Sermon</a>
               </div>
             )}
             <a className="series-image-container" tabIndex={-1} href={`${targeturl}?series=${Sermon_Series_ID}`}>
