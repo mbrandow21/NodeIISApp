@@ -279,7 +279,7 @@ phc-article .author-container .author-bio .author-socials a {
   padding: 1rem 0;
   color: currentColor;
   text-decoration: none;
-  font-size: 1.25rem;
+  font-size: 1.5rem;
 }
 .back-btn:hover {
   text-decoration: underline;
@@ -339,6 +339,12 @@ phc-series-finder .series-card-container .series .series-banner {
 }
 phc-series-finder .series-card-container .series .series-banner p {
   font-weight: bold;
+}
+phc-series-finder .series-card-container .series .series-banner a {
+  background: none;
+  padding: 0;
+  text-transform: none;
+  font-weight: normal;
 }
 phc-series-finder .series-card-container .series .series-banner a:hover {
   text-decoration: underline;
@@ -408,11 +414,16 @@ phc-series-details .series-details-container .series-head-row a {
   padding: 1rem 0;
   text-transform: uppercase;
   white-space: nowrap;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
 }
 phc-series-details .series-row {
   display: flex;
   padding: 1rem;
   gap: 1rem;
+  font-size: 18px;
 }
 phc-series-details .series-row .sermon-image-container {
   box-sizing: border-box;
@@ -482,6 +493,7 @@ phc-series-details .sermon-content .messages .sermon-info {
 }
 phc-series-details .sermon-content .messages .sermon-info p {
   margin: 0.5rem 0;
+  padding: 0;
 }
 phc-series-details .sermon-content .messages .sermon-info .sermon-title {
   font-weight: bold;
@@ -574,10 +586,15 @@ phc-sermon-player .sermon-details {
   box-sizing: border-box;
   background-color: #ecf0f1;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  font-size: 18px;
+}
+phc-sermon-player .sermon-details h3 {
+  margin-top: 1rem;
 }
 phc-sermon-player .sermon-details .title-row {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 1rem;
 }
 phc-sermon-player .sermon-details .title-row h1,
 phc-sermon-player .sermon-details .title-row p {
@@ -636,10 +653,13 @@ phc-sermon-player .other-sermons a .sermon-image-overlay:hover {
 }
 phc-sermon-player .other-sermons a .sermon-image-overlay h1 {
   margin: 0;
-  font-size: 1.25rem;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  color: white;
 }
 phc-sermon-player .other-sermons a .sermon-image-overlay p {
   margin: 0;
+  padding: 0;
+  font-size: 16px;
 }
 @media screen and (max-width: 1024px) {
   phc-sermon-player .sermon-details .title-row {
