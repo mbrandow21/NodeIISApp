@@ -536,6 +536,10 @@ phc-series-details .sermon-content .messages:hover img {
   }
 }
 
+phc-sermon-player {
+  width: 100%;
+  display: block;
+}
 phc-sermon-player .video-player-container {
   background: black;
   display: grid;

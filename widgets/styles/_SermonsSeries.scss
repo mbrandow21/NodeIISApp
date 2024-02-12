@@ -311,6 +311,9 @@ phc-series-details {
 }
 
 phc-sermon-player {
+  width: 100%;
+  display: block;
+
   .video-player-container {
     background: black;
     display: grid;
