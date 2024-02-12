@@ -120,7 +120,7 @@ const SermonPlayer = ({ returnurl, requestURL, setError }) => {
           controls={true}
           light={<img src={`https://my.pureheart.org/ministryplatformapi/files/${sermon.UniqueFileId}`} alt={sermon.Title} />}
           playIcon={<FaPlay />}
-          fileconfig={{ attributes: { playsinline: true }}}
+          config={{ file: { attributes: { playsInline: true, }, }, }}
         />
         {!watchURL && <h1 style={{position:"absolute",color:"#FFF",fontSize:"clamp(1rem,3vw,2rem)",textAlign:"center"}}>Video Not Yet Available. Try Again Later</h1>}
     </div>
