@@ -71,7 +71,7 @@ router.get("/sermon/:id", async (req, res) => {
       `/tables/Pocket_Platform_Sermons/${id}`,
       {
         $select:
-          'Sermon_ID, Series_ID, Pocket_Platform_Sermons.Congregation_ID, Congregation_ID_Table.Congregation_Name, Pocket_Platform_Sermons.Service_Type_ID, Service_Type_ID_Table.Service_Type, Title, Subtitle, Pocket_Platform_Sermons.Description, Sermon_Date, Pocket_Platform_Sermons.Speaker_ID, Speaker_ID_Table.Display_Name, Scripture_Links, Position, Status_ID, Notes_Form_ID, Sermon_UUID, dp_fileUniqueId AS "UniqueFileId"',
+          'Sermon_ID, Series_ID, Series_ID_Table.[Title] AS "Series_Title", Pocket_Platform_Sermons.Congregation_ID, Congregation_ID_Table.Congregation_Name, Pocket_Platform_Sermons.Service_Type_ID, Service_Type_ID_Table.Service_Type, Pocket_Platform_Sermons.[Title], Pocket_Platform_Sermons.[Subtitle], Pocket_Platform_Sermons.Description, Sermon_Date, Pocket_Platform_Sermons.Speaker_ID, Speaker_ID_Table.Display_Name, Scripture_Links, Pocket_Platform_Sermons.[Position], Pocket_Platform_Sermons.[Status_ID], Notes_Form_ID, Sermon_UUID, dp_fileUniqueId AS "UniqueFileId"',
       },
       {}
     );

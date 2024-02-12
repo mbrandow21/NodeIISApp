@@ -534,4 +534,123 @@ phc-series-details .sermon-content .messages:hover img {
     box-sizing: border-box;
     padding: 1rem;
   }
+}
+
+phc-sermon-player .video-player-container {
+  background: black;
+  display: grid;
+  place-items: center;
+}
+phc-sermon-player .video-player-container .video-player {
+  margin: 0 auto;
+  width: 1000px !important;
+  height: auto !important;
+  max-width: 100vw;
+  aspect-ratio: 16/9;
+}
+phc-sermon-player .video-player-container .video-player img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+phc-sermon-player .video-player-container .video-player svg {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #FFF;
+  font-size: 3rem;
+  filter: drop-shadow(0px 0px 5px rgba(0, 0, 0, 0.5333333333));
+}
+phc-sermon-player .sermon-details {
+  width: 1500px;
+  max-width: 90vw;
+  margin: 0 auto;
+  padding: 1rem;
+  box-sizing: border-box;
+  background-color: #ecf0f1;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+phc-sermon-player .sermon-details .title-row {
+  display: flex;
+  justify-content: space-between;
+}
+phc-sermon-player .sermon-details .title-row h1,
+phc-sermon-player .sermon-details .title-row p {
+  margin: 0;
+}
+phc-sermon-player .sermon-details .title-row .sermon-links-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+phc-sermon-player .sermon-details .title-row .sermon-links-container a,
+phc-sermon-player .sermon-details .title-row .sermon-links-container button {
+  padding: 0.75rem 1rem;
+  text-decoration: none;
+  border: none;
+  background-color: #7B2D26;
+  color: white;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 4px;
+  cursor: pointer;
+  white-space: nowrap;
+  height: -moz-max-content;
+  height: max-content;
+}
+phc-sermon-player .other-sermons {
+  width: 100%;
+  display: flex;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  overflow-x: auto;
+  background-color: rgba(50, 50, 50, 0.25);
+}
+phc-sermon-player .other-sermons a {
+  text-decoration: none;
+  flex-shrink: 0;
+  position: relative;
+  width: 33%;
+  max-width: 500px;
+}
+phc-sermon-player .other-sermons a img {
+  display: block;
+  width: 100%;
+}
+phc-sermon-player .other-sermons a .sermon-image-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.75);
+  color: white;
+  padding: 1rem;
+  opacity: 0;
+  transition: opacity 150ms linear;
+}
+phc-sermon-player .other-sermons a .sermon-image-overlay:hover {
+  opacity: 1;
+}
+phc-sermon-player .other-sermons a .sermon-image-overlay h1 {
+  margin: 0;
+  font-size: 1.25rem;
+}
+phc-sermon-player .other-sermons a .sermon-image-overlay p {
+  margin: 0;
+}
+@media screen and (max-width: 1024px) {
+  phc-sermon-player .sermon-details .title-row {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  phc-sermon-player .other-sermons {
+    justify-content: flex-start !important;
+  }
+  phc-sermon-player .other-sermons a {
+    width: 55%;
+  }
+}
+@media screen and (max-width: 768px) {
+  phc-sermon-player .other-sermons a {
+    width: 80%;
+  }
 }/*# sourceMappingURL=main.css.map */
