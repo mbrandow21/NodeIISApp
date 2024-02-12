@@ -4,8 +4,7 @@ import widgetsRegistry from './components/index.js';
 
 import EventBus from './util/EventEmitter.jsx';
 
-const requestURL = 'https://dev.phc.events';
-// const requestURL = 'http://localhost:5000';
+const requestURL = process.env.NODE_ENV === 'production' ? 'https://dev.phc.events' : 'http://localhost:5000';
 
 const AuthComponent = ({ Component, props }) => {
   const [user, setUser] = useState(null);

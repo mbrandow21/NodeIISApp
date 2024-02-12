@@ -1,12 +1,12 @@
 const path = require('path');
 
 module.exports = {
-  mode: 'production',
-  // mode: 'development',
+  mode: process.env.NODE_ENV || 'development',
   entry: './widgets/PHCWidgets.jsx',
   output: {
     filename: 'PHCWidgets.js',
     path: path.resolve(__dirname, 'dist'),
+    publicPath: process.env.PUBLIC_PATH
   },
   module: {
     rules: [
@@ -21,5 +21,5 @@ module.exports = {
         },
       }
     ],
-  },
+  }
 };
