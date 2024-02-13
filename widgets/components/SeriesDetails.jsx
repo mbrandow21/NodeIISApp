@@ -54,6 +54,22 @@ const SeriesDetails = ({ returnurl, targeturl, requestURL, setError }) => {
         setError("Something terrible happened, please try again or reach out to support.");
       });
   }
+
+  const nextSeries = (currSeriesID, val) => {
+    fetch(`${requestURL}/api/widgets/series`)
+      .then(response => response.json())
+      .then(seriesList => {
+        const currSeriesIndex = seriesList.findIndex(series => series.Sermon_Series_ID == currSeriesID);
+        const nextSeries = seriesList[currSeriesIndex + val];
+        if (!nextSeries) return;
+        const { Sermon_Series_ID } = nextSeries;
+        window.location = `?series=${Sermon_Series_ID}`
+      })
+      .catch((err) => {
+        console.log(err);
+        console.log('Could not retrieve next sermon series.')
+      })
+  }
   
   useEffect(() => {
     if (!targeturl) return setError("Missing target URL");
@@ -83,9 +99,9 @@ const SeriesDetails = ({ returnurl, targeturl, requestURL, setError }) => {
       </div>
       <div className="series-details-container">
         <div className="series-head-row">
-          <a href={`${returnurl}?id=99`}><FaArrowLeft/> Previous Series</a>
+          <a href={null} onClick={() => nextSeries(seriesID, 1)}><FaArrowLeft/> Previous Series</a>
           <h1 className="series-title">{series.Title}</h1>
-          <a href={`${returnurl}?id=99`}>Next Series <FaArrowRight/></a>
+          <a href={null} onClick={() => nextSeries(seriesID, -1)}>Next Series <FaArrowRight/></a>
         </div>
         <div className="series-row">
           <div className="sermon-image-container">
