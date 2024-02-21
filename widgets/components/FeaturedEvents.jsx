@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import MinistryPlatformAPI from '../util/MinistryPlatformAPI.js';
 import Loader from "./Loader.jsx";
 
 const FeaturedEvents = ({ requestURL, targeturl, setError }) => {
@@ -8,16 +9,9 @@ const FeaturedEvents = ({ requestURL, targeturl, setError }) => {
   useEffect(() => {
     if (!targeturl) return setError('Missing target url');
 
-    const getFeaturedEvents = () => fetch(`${requestURL}/api/widgets/featured-events`)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Failed to load featured events');
-        }
-        return response.json();
-      })
-      .catch(() => {
-        throw new Error('Failed to load featured events');
-      })
+    const getFeaturedEvents = () => MinistryPlatformAPI.request(requestURL, 'get', '/tables/Events', {"$select":'Event_ID,Event_Title,Event_Start_Date,Featured_Event_Custom_URL,dp_fileUniqueId AS "UniqueFileId"',"$filter":"(Event_Start_Date >= GETDATE() AND Event_Start_Date < (GETDATE() + 90)) AND (Featured_On_Calendar=1 OR Force_Featured=1)","$orderby":"Event_Start_Date"}, {})
+      .then(data => data)
+      .catch(() => { throw new Error('Failed to load featured events') })
     
     getFeaturedEvents()
       .then(events => {

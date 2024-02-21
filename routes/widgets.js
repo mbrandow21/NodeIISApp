@@ -3,6 +3,32 @@ const router = express.Router();
 
 const MinistryPlatformAPI = require("ministry-platform-api-wrapper");
 
+// Middleware to check for authorized URLs
+const checkAuthorizedOrigin = (req, res, next) => {
+  const authorizedOrigins = process.env.AUTHORIZED_ORIGINS.split(',');
+  const origin = req.headers.origin;
+
+  if (authorizedOrigins.includes(origin)) {
+    next(); // Origin is authorized, proceed to the next middleware
+  } else {
+    res.status(403).send('Access denied. Origin not authorized.'); // Block the request
+  }
+};
+
+// GENERAL API WRAPPER ROUTE
+router.post("/", checkAuthorizedOrigin, async (req, res) => {
+  try {
+    console.log(req.body);
+    const { method, path, query, body } = req.body;
+    if (!method || !path) return res.status(400).send("messing method or path");
+    const data = await MinistryPlatformAPI.request(method, path, query, body);
+    res.send(data);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal server error");
+  }
+})
+
 // SERMON SERIES/FINDER WIDGETS
 router.get("/series", async (req, res) => {
   try {
