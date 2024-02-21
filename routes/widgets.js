@@ -197,3 +197,15 @@ router.get("/author-graphic/:guid", async (req, res) => {
 });
 
 module.exports = router;
+
+// PHC FEATURED EVENTS WIDGETS
+
+router.get('/featured-events', async (req, res) => {
+  try {
+    const data = await MinistryPlatformAPI.request('get', '/tables/Events', {"$select":'Event_ID,Event_Title,Event_Start_Date,Featured_Event_Custom_URL,dp_fileUniqueId AS "UniqueFileId"',"$filter":"(Event_Start_Date >= GETDATE() AND Event_Start_Date < (GETDATE() + 90)) AND (Featured_On_Calendar=1 OR Force_Featured=1)","$orderby":"Event_Start_Date"}, {});
+    res.send(data);
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Internal server error");
+  }
+})

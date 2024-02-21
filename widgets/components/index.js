@@ -5,6 +5,7 @@ import Article from "./Article.jsx";
 import SeriesFinder from "./SeriesFinder.jsx";
 import SeriesDetails from "./SeriesDetails.jsx";
 import SermonPlayer from "./SermonPlayer.jsx";
+import FeaturedEvents from "./FeaturedEvents.jsx";
 
 export default [
   {
@@ -34,6 +35,10 @@ export default [
   {
     name: "phc-sermon-player",
     Component: SermonPlayer
+  },
+  {
+    name: "phc-featured-events",
+    Component: FeaturedEvents
   },
 
 ]
