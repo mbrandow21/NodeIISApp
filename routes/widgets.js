@@ -18,10 +18,9 @@ const checkAuthorizedOrigin = (req, res, next) => {
 // GENERAL API WRAPPER ROUTE
 router.post("/", checkAuthorizedOrigin, async (req, res) => {
   try {
-    console.log(req.body);
-    const { method, path, query, body } = req.body;
-    if (!method || !path) return res.status(400).send("messing method or path");
-    const data = await MinistryPlatformAPI.request(method, path, query, body);
+    const { path, query, body } = req.body;
+    if (!path) return res.status(400).send("messing method or path");
+    const data = await MinistryPlatformAPI.request("get", path, query, body);
     res.send(data);
   } catch (error) {
     console.log(error);

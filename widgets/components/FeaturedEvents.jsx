@@ -9,7 +9,7 @@ const FeaturedEvents = ({ requestURL, targeturl, setError }) => {
   useEffect(() => {
     if (!targeturl) return setError('Missing target url');
 
-    const getFeaturedEvents = () => MinistryPlatformAPI.request(requestURL, 'get', '/tables/Events', {"$select":'Event_ID,Event_Title,Event_Start_Date,Featured_Event_Custom_URL,dp_fileUniqueId AS "UniqueFileId"',"$filter":"(Event_Start_Date >= GETDATE() AND Event_Start_Date < (GETDATE() + 90)) AND (Featured_On_Calendar=1 OR Force_Featured=1)","$orderby":"Event_Start_Date"}, {})
+    const getFeaturedEvents = () => MinistryPlatformAPI.request(requestURL, '/tables/Events', {"$select":'Event_ID,Event_Title,Event_Start_Date,Featured_Event_Custom_URL,dp_fileUniqueId AS "UniqueFileId"',"$filter":"(Event_Start_Date >= GETDATE() AND Event_Start_Date < (GETDATE() + 90)) AND (Featured_On_Calendar=1 OR Force_Featured=1)","$orderby":"Event_Start_Date"}, {})
       .then(data => data)
       .catch(() => { throw new Error('Failed to load featured events') })
     
